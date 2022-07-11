@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:odm/constants/key_store.dart';
+import 'package:odm/controllers/controller_sign.dart';
 import 'package:odm/screens/components/dialog_basic.dart';
 import 'package:odm/utils/print.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -18,31 +19,28 @@ class SplashController extends GetxController
 
   SplashController() {
     getAppInitData();
-    // _storage.write(KeyStore.notifySeq_I, 0);
-    // _storage.write(KeyStore.termSeq_I, 0);
     // _storage.write(KeyStore.appVer_I, 0);
   }
 
-  late AppStartModel _model;
+  late AppVersionModel _appVersionModel;
 
   void getAppInitData() async {
-    final _packageInfo = await PackageInfo.fromPlatform();
-    final notifySeq = _storage.read(KeyStore.notifySeq_I) ?? 0;
-    final termSeq = _storage.read(KeyStore.termSeq_I) ?? 0;
+    final packageInfo = await PackageInfo.fromPlatform();
+
     var appVersion = _storage.read(KeyStore.appVer_I) ?? 0;
-    if (int.parse(_packageInfo.buildNumber) > appVersion) {
-      appVersion = int.parse(_packageInfo.buildNumber);
+    if (int.parse(packageInfo.buildNumber) > appVersion) {
+      appVersion = int.parse(packageInfo.buildNumber);
     }
 
     try {
-      final response = await HttpClient.instance
-          .get('/init/splash/$appVersion/$notifySeq/$termSeq');
+      final response =
+          await HttpClient.instance.get('/appVersion/after/$appVersion');
 
       if (response['code'] == 200) {
-        _model = AppStartModel.fromJson(response['data']);
-
-        _setInitSplashProcess();
-        checkProcess();
+        _appVersionModel = AppVersionModel.fromJson(response['data'][0]);
+        _hasNewAppVersion();
+      } else if (response['code'] == 254) {
+        moveNext();
       } else {
         Print.w("Respose COde: ${response['code']}");
       }
@@ -54,11 +52,19 @@ class SplashController extends GetxController
 
   void _launchStore() {}
 
-  void _showNessearyUpdatePop(AppVersionModel data) {
+  void _hasNewAppVersion() {
+    if (_appVersionModel.isMustUpdate ?? false) {
+      _showNessearyUpdatePop();
+    } else {
+      _showUpdatePop();
+    }
+  }
+
+  void _showNessearyUpdatePop() {
     Get.dialog(
       BasicDialog(
         title: "필수 업데이트",
-        message: data.say ?? "",
+        message: _appVersionModel.say ?? "",
         leftBtnTitle: "종료",
         leftBtnAction: () => exit(0),
         rightBtnTitle: "업데이트",
@@ -69,59 +75,25 @@ class SplashController extends GetxController
     );
   }
 
-  void _showUpdatePop(AppVersionModel data) {
+  void _showUpdatePop() {
     Get.dialog(
       BasicDialog(
-        message: data.say ?? "",
+        message: _appVersionModel.say ?? "",
         leftBtnTitle: "건너뛰기",
         leftBtnAction: () {
-          _model.setProcessStateChanged(0, true);
-
-          _storage.write(KeyStore.appVer_I, data.appVer);
-          Get.back();
+          _storage.write(KeyStore.appVer_I, _appVersionModel.appVer);
+          moveNext();
         },
         rightBtnTitle: "업데이트",
+        rightBtnAccent: true,
         rightBtnAction: () => _launchStore(),
       ),
       barrierDismissible: false,
     );
   }
 
-  void _setInitSplashProcess() {
-    if (_model.update != null) {
-      _model.setProcessStateChanged(0, false);
-      if ((_model.update?.isMustUpdate ?? 0) == 1) {
-        _showNessearyUpdatePop(_model.update!);
-      } else {
-        _showUpdatePop(_model.update!);
-      }
-    }
-    if (_model.notify != null && (_model.notify?.length ?? 0) > 0) {
-      _model.setProcessStateChanged(1, false);
-    }
-    if (_model.term != null) {
-      _model.setProcessStateChanged(2, false);
-    }
-  }
-
-  void _dataChange() {
-    change(_model, status: RxStatus.success());
-  }
-
-  void readNotify(int seq) {
-    _storage.write(KeyStore.notifySeq_I, seq);
-  }
-
-  void agreeTerm(int seq) {
-    _storage.write(KeyStore.termSeq_I, seq);
-  }
-
-  void checkProcess() {
-    if (_model.processState.contains(false)) {
-      _dataChange();
-    } else {
-      //   final SignController _controller = Get.find();
-      //   _controller.signInContollerStart();
-    }
+  void moveNext() {
+    final SignController controller = Get.find();
+    controller.signInContollerStart();
   }
 }

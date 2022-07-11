@@ -2,10 +2,16 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:odm/controllers/contoller_user_info.dart';
+import 'package:odm/controllers/controller_email_sign_in.dart';
+import 'package:odm/controllers/controller_third_party_signin.dart';
 import 'package:odm/firebase_options.dart';
 import 'package:odm/routers.dart';
+import 'package:odm/theme.dart';
+
+import 'controllers/controller_sign.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -32,10 +38,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // Get.put(SignController());
-    // Get.put(UserInfoController());
-    // Get.put(ThirdPartySignInController());
-    // Get.put(EmailSignInController());
+    Get.put(SignController());
+    Get.put(UserInfoController());
+    Get.put(ThirdPartySignInController());
+    Get.put(EmailSignInController());
 
     return GetMaterialApp(
       builder: (BuildContext context, Widget? child) {
@@ -47,6 +53,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       getPages: Routers().allPageRouter,
+      theme: Themes.lightTheme,
     );
   }
 }

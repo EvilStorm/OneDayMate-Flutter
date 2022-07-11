@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:odm/constants/constants.dart';
 
 class BasicDialog extends StatelessWidget {
   final String message;
@@ -58,14 +59,14 @@ class BasicDialog extends StatelessWidget {
                   child: Text(
                     message.replaceAll("\\n", "\n"),
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         color: Colors.black,
                         height: 1.4,
                         fontWeight: FontWeight.w500),
                   ),
                 ),
               ),
-              buttonSection()
+              buttonSection(context),
             ],
           ),
         ),
@@ -73,20 +74,13 @@ class BasicDialog extends StatelessWidget {
     );
   }
 
-  Row buttonSection() {
+  Row buttonSection(BuildContext context) {
     return Row(
       children: [
         Visibility(
-            visible: leftBtnTitle != null,
-            child: Expanded(
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: leftBtnAccent
-                          ? MaterialStateProperty.all(Colors.red)
-                          : null,
-                    ),
-                    onPressed: () => leftBtnAction?.call(),
-                    child: Text(leftBtnTitle ?? "")))),
+          visible: leftBtnTitle != null,
+          child: _button(context, leftBtnAccent, leftBtnTitle, leftBtnAction),
+        ),
         Visibility(
             visible: leftBtnTitle != null,
             child: const SizedBox(
@@ -94,17 +88,39 @@ class BasicDialog extends StatelessWidget {
             )),
         Visibility(
           visible: rightBtnTitle != null,
-          child: Expanded(
-              child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: rightBtnAccent
-                        ? MaterialStateProperty.all(Colors.red)
-                        : null,
-                  ),
-                  onPressed: () => rightBtnAction?.call(),
-                  child: Text(rightBtnTitle ?? ""))),
+          child:
+              _button(context, rightBtnAccent, rightBtnTitle, rightBtnAction),
         ),
       ],
     );
   }
+}
+
+Expanded _button(
+    BuildContext context, bool isAccent, String? text, Function? action) {
+  return Expanded(
+    child: OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        backgroundColor:
+            isAccent ? Theme.of(context).primaryColor : Colors.white,
+        side: BorderSide(
+          width: 2,
+          color: isAccent
+              ? Theme.of(context).primaryColor
+              : const Color(0xFFD6D6D6),
+        ),
+      ),
+      onPressed: () => action?.call(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: Constants.sapceGap),
+        child: Text(
+          text ?? "",
+          style: Theme.of(context)
+              .textTheme
+              .button!
+              .copyWith(color: isAccent ? Colors.white : Colors.black),
+        ),
+      ),
+    ),
+  );
 }

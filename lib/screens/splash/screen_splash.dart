@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:odm/controllers/controller_splash.dart';
 import 'package:odm/screens/components/widget_notify.dart';
@@ -12,50 +13,23 @@ class SplashScreen extends GetView<SplashController> {
     Get.put(SplashController());
 
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: Theme.of(context).backgroundColor,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: controller.obx((state) {
-              return Stack(
-                children: [
-                  Visibility(
-                    visible: !state!.processState[1],
-                    child: WidgetNotify(
-                      data: state.notify,
-                      showTitle: true,
-                      callback: (seq) {
-                        state.setProcessStateChanged(1, true);
-                        controller.readNotify(seq);
-                        controller.checkProcess();
-                      },
-                    ),
-                  ),
-                  Visibility(
-                    visible: !state.processState[2],
-                    child: TermWidget(
-                      data: state.term,
-                      justShow: false,
-                      callback: (seq) {
-                        state.setProcessStateChanged(2, true);
-                        controller.agreeTerm(seq);
-                        controller.checkProcess();
-                      },
-                    ),
-                  )
-                ],
-              );
-            }, onLoading: loadingWidget()),
-          ),
-        ),
+      body: Container(
+        color: Theme.of(context).backgroundColor,
+        child: controller.obx((state) {
+          return loadingWidget(context);
+        }, onLoading: loadingWidget(context)),
       ),
     );
   }
 
-  Center loadingWidget() {
-    return const Center(
-      child: Text('로딩'),
+  Container loadingWidget(BuildContext context) {
+    return Container(
+      height: Get.size.height,
+      width: Get.size.width,
+      color: Theme.of(context).primaryColor,
+      child: Center(
+        child: SvgPicture.asset('assets/images/stylemate_splash_logo.svg'),
+      ),
     );
   }
 }
