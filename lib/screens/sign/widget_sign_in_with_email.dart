@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/controller_email_sign_in.dart';
+import 'package:odm/screens/components/button.dart';
 import 'package:odm/screens/sign/widget_add_account_email.dart';
 
 class SignInWithEmail extends StatefulWidget {
@@ -43,7 +45,6 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
           keyboardType: TextInputType.emailAddress,
           style: Theme.of(context).textTheme.bodyText1,
           decoration: const InputDecoration(
-            border: OutlineInputBorder(),
             labelText: '이메일',
           ),
         ),
@@ -55,9 +56,11 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
           obscureText: true,
           style: Theme.of(context).textTheme.bodyText1,
           decoration: const InputDecoration(
-            border: OutlineInputBorder(),
             labelText: '비밀번호',
           ),
+        ),
+        const SizedBox(
+          height: Constants.sapceGap * 2,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,13 +86,10 @@ class _SignInWithEmailState extends State<SignInWithEmail> {
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: ElevatedButton(
-            onPressed: () {
-              controller.signIn();
-            },
-            child: const Text(
-              '로그인',
-            ),
+          child: Button(
+            text: '로그인',
+            isAccent: true,
+            action: () => controller.signIn(),
           ),
         ),
         const Spacer(

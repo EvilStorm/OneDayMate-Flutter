@@ -27,16 +27,16 @@ class _SignInScreenState extends State<SignInScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: Constants.sapceGap),
+                      horizontal: Constants.sapceGap * 5),
                   child: Column(
                     children: [
                       const SizedBox(
-                        height: Constants.sapceGap * 4,
+                        height: 76,
                       ),
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'SignIn',
+                          '로그인',
                           style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
@@ -45,20 +45,20 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       const SizedBox(height: 300.0, child: SignInWithEmail()),
                       const SizedBox(
-                        height: Constants.sapceGap / 2,
+                        height: Constants.sapceGap * 2,
                       ),
                       const SizedBox(
-                        height: Constants.sapceGap * 2,
+                        height: Constants.sapceGap * 8,
                       ),
                       const HorizentalBorder(),
                       const SizedBox(
-                        height: Constants.sapceGap * 2,
+                        height: Constants.sapceGap * 8,
                       ),
                       ThirdPartySignInSection(
                         height: 100,
                       ),
                       const SizedBox(
-                        height: Constants.sapceGap * 4,
+                        height: Constants.sapceGap * 2,
                       ),
                     ],
                   ),

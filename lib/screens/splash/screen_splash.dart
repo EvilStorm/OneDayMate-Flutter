@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:odm/controllers/controller_splash.dart';
-import 'package:odm/screens/components/widget_notify.dart';
-import 'package:odm/screens/components/widget_term.dart';
 
 class SplashScreen extends GetView<SplashController> {
   const SplashScreen({Key? key}) : super(key: key);

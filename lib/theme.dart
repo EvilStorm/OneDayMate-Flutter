@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:odm/constants/color_store.dart';
+import 'package:odm/constants/constants.dart';
 
 class Themes {
   static final lightTheme = ThemeData.light().copyWith(
@@ -11,6 +13,8 @@ class Themes {
       errorColor: Colors.redAccent[700],
       splashColor: Colors.transparent,
       highlightColor: const Color(0xFF2374ED),
+      textSelectionTheme:
+          const TextSelectionThemeData(cursorColor: ColorStore.primaryColor),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           primary: const Color(0xFFF56E22),
@@ -18,9 +22,22 @@ class Themes {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ),
-      sliderTheme: SliderThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+        floatingLabelStyle: const TextStyle(color: ColorStore.primaryColor),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            style: BorderStyle.solid,
+            color: ColorStore.primaryColor,
+          ),
+          borderRadius: BorderRadius.circular(Constants.sapceGap * 3),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(Constants.sapceGap * 3),
+        ),
+      ),
+      sliderTheme: const SliderThemeData(
         showValueIndicator: ShowValueIndicator.always,
-        valueIndicatorColor: const Color(0xFFF56E22),
+        valueIndicatorColor: Color(0xFFF56E22),
       ),
       textTheme: const TextTheme(
         headline1: TextStyle(
@@ -45,7 +62,7 @@ class Themes {
             fontSize: 16.0, fontWeight: FontWeight.w400, color: Colors.black),
         caption: TextStyle(fontSize: 14.0, color: Color(0xFFAFAFAF)),
         button: TextStyle(
-            fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.white),
+            fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white),
         overline: TextStyle(fontSize: 14.0),
       ).apply(
           // bodyColor: Colors.black,

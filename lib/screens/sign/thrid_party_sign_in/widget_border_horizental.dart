@@ -16,7 +16,7 @@ class HorizentalBorder extends StatelessWidget {
         ),
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Constants.sapceGap * 2),
+        padding: const EdgeInsets.symmetric(horizontal: Constants.sapceGap * 8),
         child: Text(
           'OR',
           style: Theme.of(context).textTheme.bodyText1,

@@ -33,7 +33,7 @@ class ThridPartySignInButton extends StatelessWidget {
           callback();
         },
         child: Padding(
-          padding: const EdgeInsets.all(Constants.sapceGap / 2),
+          padding: const EdgeInsets.all(Constants.sapceGap * 2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -48,7 +48,7 @@ class ThridPartySignInButton extends StatelessWidget {
               ),
               Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: Constants.sapceGap / 2),
+                      horizontal: Constants.sapceGap * 2),
                   child: Text(
                     title,
                     style: TextStyle(
