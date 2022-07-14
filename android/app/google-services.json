@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "985243073903",
+    "project_id": "onedaymate-b9037",
+    "storage_bucket": "onedaymate-b9037.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985243073903:android:ba3fef40adb43118513c9a",
+        "android_client_info": {
+          "package_name": "com.hj.odm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985243073903-v8fvi80pa7hlq4qv6qs6a8rnu08rb5bt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4yWkRhZsR1JJMP2cODkujh6v98BtadSo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985243073903-v8fvi80pa7hlq4qv6qs6a8rnu08rb5bt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "985243073903-0hau3dmvkv5gp643d091d7vl7h8i5qak.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hj.odm"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
