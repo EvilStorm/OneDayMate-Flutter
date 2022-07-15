@@ -14,60 +14,45 @@ class ThirdPartySignInSection extends StatelessWidget {
   final double appIconSize = 35;
 
   final ThirdPartySignInController controller = Get.find();
+  bool notNull(Object? o) => o != null;
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Flexible(
-          flex: 1,
-          child: CircleButton(
-            callback: () {
-              controller.signInWithGoogle();
-            },
-            child: SvgPicture.asset(
-              "assets/images/google_logo.svg",
-              width: appIconSize,
-              height: appIconSize,
-            ),
-          ),
+  dynamic _thirdPartyBtns() {
+    return <Widget?>[
+      CircleButton(
+        callback: () {
+          controller.signInWithGoogle();
+        },
+        child: SvgPicture.asset(
+          "assets/images/google_logo.svg",
+          width: appIconSize,
+          height: appIconSize,
         ),
-        Flexible(
-          flex: 1,
-          child: CircleButton(
-            callback: () {
-              controller.signInWithFacebook();
-            },
-            backgroundColor: const Color(0xFF4267B2),
-            child: SvgPicture.asset(
-              "assets/images/facebook_logo.svg",
-              width: appIconSize,
-              height: appIconSize,
-              color: Colors.white,
-            ),
-          ),
+      ),
+      CircleButton(
+        callback: () {
+          controller.signInWithFacebook();
+        },
+        backgroundColor: const Color(0xFF4267B2),
+        child: SvgPicture.asset(
+          "assets/images/facebook_logo.svg",
+          width: appIconSize,
+          height: appIconSize,
+          color: Colors.white,
         ),
-        Flexible(
-          flex: 1,
-          child: CircleButton(
-            callback: () {
-              controller.signInWithKakao();
-            },
-            backgroundColor: const Color(0xFFFFE812),
-            child: SvgPicture.asset(
-              "assets/images/kakaotalk_logo.svg",
-              width: appIconSize,
-              height: appIconSize,
-            ),
-          ),
+      ),
+      CircleButton(
+        callback: () {
+          controller.signInWithKakao();
+        },
+        backgroundColor: const Color(0xFFFFE812),
+        child: SvgPicture.asset(
+          "assets/images/kakaotalk_logo.svg",
+          width: appIconSize,
+          height: appIconSize,
         ),
-        Visibility(
-          visible: Platform.isIOS,
-          child: Flexible(
-            flex: 1,
-            child: CircleButton(
+      ),
+      Platform.isAndroid
+          ? CircleButton(
               callback: () {
                 controller.signInWithApple();
               },
@@ -77,10 +62,20 @@ class ThirdPartySignInSection extends StatelessWidget {
                 width: appIconSize,
                 height: appIconSize,
               ),
-            ),
-          ),
-        ),
-      ],
+            )
+          : null,
+    ].where(notNull).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [..._thirdPartyBtns()],
+      ),
     );
   }
 }
