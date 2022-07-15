@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:kakao_flutter_sdk/all.dart';
 import 'package:odm/utils/print.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -44,7 +43,8 @@ class ThirdPartySignInController extends GetxController {
           FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
       // Once signed in, return the UserCredential
-      return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      return await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
     } catch (e) {
       Print.e(e);
       return null;

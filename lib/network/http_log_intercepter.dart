@@ -14,12 +14,11 @@ class HttpLoggerInterceptor implements InterceptorContract {
   Future<RequestData> interceptRequest({required RequestData data}) async {
     if (isShowLog) {
       if (isShowLog) {
-        Print.i(
-            "${getTime()} <<<<<<<<<<<<<<  Request  >>>>>>>>>>>>>>>>>>>>>>>");
-        Print.api("${getTime()} Request Url: ${data.url}");
-        Print.api("${getTime()} Request header: ${data.headers}");
-        Print.api("${getTime()} Request Body: ${data.body}");
-        Print.i("${getTime()} -------------------------------------- ");
+        Print.i("<<<<<<<<<<<<<<  Request  >>>>>>>>>>>>>>>>>>>>>>>");
+        Print.api("Request Url: ${data.url}");
+        Print.api("Request header: ${data.headers}");
+        Print.api("Request Body: ${data.body}");
+        Print.i("-------------------------------------- ");
       }
     }
     return data;
@@ -28,11 +27,10 @@ class HttpLoggerInterceptor implements InterceptorContract {
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
     if (isShowLog) {
-      Print.ii(
-          "${getTime()} >>>>>>>>>>>>>>>>>> Response <<<<<<<<<<<<<<<<<<<<<<<<");
-      Print.api2("${getTime()} Response Url: (${data.statusCode}) ${data.url}");
-      Print.api2("${getTime()} Response data: ${data.body.toString()}");
-      Print.ii("${getTime()} -------------------------------------- ");
+      Print.ii(">>>>>>>>>>>>>>>>>> Response <<<<<<<<<<<<<<<<<<<<<<<<");
+      Print.api2("Response Url: (${data.statusCode}) ${data.url}");
+      Print.api2("Response data: ${data.body.toString()}");
+      Print.ii("-------------------------------------- ");
     }
 
     return data;

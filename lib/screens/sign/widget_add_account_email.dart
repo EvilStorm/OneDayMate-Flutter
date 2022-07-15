@@ -107,6 +107,9 @@ class _AddAccountWithEmailState extends State<AddAccountWithEmail> {
                 },
               ),
             ),
+            const Spacer(
+              flex: 2,
+            ),
           ],
         ),
       ),
