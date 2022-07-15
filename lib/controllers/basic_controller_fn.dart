@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:odm/screens/components/circular_progress.dart';
 import 'package:odm/screens/components/dialog_basic.dart';
 
 class BasicControllorFunctions {
@@ -24,5 +26,22 @@ class BasicControllorFunctions {
 
   void showMessage(String msg) {
     Fluttertoast.showToast(msg: msg);
+  }
+
+  Future<void> showLoadingDialog() async {
+    showDialog(
+      context: Get.overlayContext!,
+      barrierDismissible: false,
+      builder: (_) => WillPopScope(
+        onWillPop: () async => false,
+        child: const Center(
+          child: CircularProgress(),
+        ),
+      ),
+    );
+  }
+
+  void hideLoadingDialog() {
+    Navigator.of(Get.overlayContext!).pop();
   }
 }

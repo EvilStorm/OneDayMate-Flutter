@@ -56,11 +56,12 @@
 				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
 				<string>com.googleusercontent.apps.985243073903-0hau3dmvkv5gp643d091d7vl7h8i5qak</string>
 				<string>fb403270055166919</string>
+				<string>kakaob1c8572d7c772bce02b913c7c1e9e08c</string>
 			</array>
 		</dict>
 	</array>
 	<!-- End of the Google Sign-in Section -->
-	<!-- facebook sign -->
+	<!-- Start Facebook sign Section -->
 	<key>FacebookAppID</key>
 	<string>403270055166919</string>
 	<key>FacebookClientToken</key>
@@ -85,5 +86,12 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 	</array>
+	<!-- End of Facebook Sign-in Section -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaob1c8572d7c772bce02b913c7c1e9e08c</string>
+		<string>kakaokompassauth</string>
+	</array>
+	
 </dict>
 </plist>

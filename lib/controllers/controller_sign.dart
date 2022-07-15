@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:odm/constants/key_store.dart';
 import 'package:odm/controllers/contoller_user_info.dart';
 import 'package:odm/models/model_user.dart';
@@ -53,7 +54,8 @@ class SignController extends GetxController {
     try {
       final signIn = await HttpClient.instance.post('/sign/signin', body: {
         'identifyId': FirebaseAuth.instance.currentUser?.uid,
-        'email': FirebaseAuth.instance.currentUser?.providerData[0].email,
+        'email': FirebaseAuth.instance.currentUser?.email ??
+            FirebaseAuth.instance.currentUser?.providerData[0].email,
         'loginType': signInType().toString(),
       });
 
@@ -145,7 +147,7 @@ class SignController extends GetxController {
     var signType = storage.read(KeyStore.signInType_S);
     switch (signType) {
       case 'kakao':
-        // await UserApi.instance.logout();
+        await UserApi.instance.logout();
         break;
       case 'google.com':
         await GoogleSignIn().signOut();

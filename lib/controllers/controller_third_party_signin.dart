@@ -4,15 +4,19 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:odm/controllers/basic_controller_fn.dart';
 import 'package:odm/utils/print.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-class ThirdPartySignInController extends GetxController {
+class ThirdPartySignInController extends GetxController
+    with BasicControllorFunctions {
   final storage = GetStorage();
 
   Future<UserCredential?> signInWithGoogle() async {
-    Print.w('signInWithGoogle');
     try {
+      showLoadingDialog();
+
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       final GoogleSignInAuthentication? googleAuth =
@@ -27,12 +31,16 @@ class ThirdPartySignInController extends GetxController {
     } catch (e) {
       Print.e(e);
       return null;
+    } finally {
+      hideLoadingDialog();
     }
   }
 
   Future<UserCredential?> signInWithFacebook() async {
     // Trigger the sign-in flow
     try {
+      showLoadingDialog();
+
       final LoginResult loginResult = await FacebookAuth.instance.login();
 
       if (loginResult.accessToken?.token == null) {
@@ -48,29 +56,41 @@ class ThirdPartySignInController extends GetxController {
     } catch (e) {
       Print.e(e);
       return null;
+    } finally {
+      hideLoadingDialog();
     }
   }
 
-  void signInWithKakao() async {
-    // KakaoContext.clientId = "78c7bc72a57e2e408fe139eed21ed523";
-    // late OAuthToken kakaoAuth;
-    // var hasKakaoTalk = await isKakaoTalkInstalled();
-    // if (hasKakaoTalk) {
-    //   await UserApi.instance.loginWithKakaoTalk();
-    // } else {
-    //   await UserApi.instance.loginWithKakaoAccount();
-    // }
-    // var response = await http.post(
-    //     Uri.parse("http://192.168.0.7:2394/api/auth/callbacks/kakao/token"),
-    //     body: {"accessToken": kakaoAuth.accessToken});
+  Future<UserCredential?> signInWithKakao() async {
+    try {
+      showLoadingDialog();
 
-    // var auth = await FirebaseAuth.instance.signInWithCustomToken(response.body);
+      KakaoSdk.init(nativeAppKey: 'b1c8572d7c772bce02b913c7c1e9e08c');
+      var hasKakaoTalk = await isKakaoTalkInstalled();
+      late OAuthToken kakaoAuth;
+      if (hasKakaoTalk) {
+        kakaoAuth = await UserApi.instance.loginWithKakaoTalk();
+      } else {
+        kakaoAuth = await UserApi.instance.loginWithKakaoAccount();
+      }
 
-    // Print.i(auth);
+      var response = await http.post(
+          Uri.parse("http://192.168.0.4:2394/api/auth/callbacks/kakao/token"),
+          body: {"accessToken": kakaoAuth.accessToken});
+
+      return await FirebaseAuth.instance.signInWithCustomToken(response.body);
+    } catch (e) {
+      Print.e(e);
+      return null;
+    } finally {
+      hideLoadingDialog();
+    }
   }
 
   void signInWithApple() async {
     try {
+      showLoadingDialog();
+
       final appleCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
@@ -87,6 +107,8 @@ class ThirdPartySignInController extends GetxController {
     } catch (e) {
       Print.e(e);
       return null;
+    } finally {
+      hideLoadingDialog();
     }
   }
 }
