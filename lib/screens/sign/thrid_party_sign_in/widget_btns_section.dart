@@ -51,7 +51,7 @@ class ThirdPartySignInSection extends StatelessWidget {
           height: appIconSize,
         ),
       ),
-      Platform.isAndroid
+      Platform.isIOS
           ? CircleButton(
               callback: () {
                 controller.signInWithApple();
