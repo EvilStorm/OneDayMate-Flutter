@@ -68,7 +68,6 @@ Future requestPermission() async {
 
   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
     Print.i('User granted permission');
-    // TODO: handle the received notifications
   } else {
     Print.i('User declined or has not accepted permission');
   }
