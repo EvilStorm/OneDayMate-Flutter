@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:odm/constants/constants.dart';
+import 'package:odm/utils/device_util.dart';
 
 class BasicDialog extends StatelessWidget {
   final String message;
@@ -34,13 +36,15 @@ class BasicDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: Colors.white,
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: DeviceUtils.isPhone(MediaQuery.of(context))
+            ? MediaQuery.of(context).size.width * 0.8
+            : 420,
         height: height ?? getDefaultHeight(),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Visibility(
                   visible: title != null,
@@ -112,7 +116,7 @@ Expanded _button(
       ),
       onPressed: () => action?.call(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: Constants.sapceGap),
+        padding: const EdgeInsets.symmetric(vertical: Constants.sapceGap * 3),
         child: Text(
           text ?? "",
           style: Theme.of(context)

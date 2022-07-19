@@ -18,18 +18,24 @@ class BirefAddressSearchController extends GetxController
   @override
   void onInit() {
     searchController.addListener(() {
-      if (searchController.text.isEmpty) {
-        return;
-      }
-
       _searchTmer?.cancel();
       _searchTmer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+        if (searchController.text.isEmpty) {
+          searchClear();
+          return;
+        }
         searchBriefAddress();
         timer.cancel();
       });
     });
 
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    searchController.dispose();
+    super.onClose();
   }
 
   void searchBriefAddress() async {

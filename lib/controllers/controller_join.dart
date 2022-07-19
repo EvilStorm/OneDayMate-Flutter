@@ -6,7 +6,7 @@ import 'package:odm/models/model_simple.dart';
 import 'package:odm/network/http_client.dart';
 
 class JoinController extends GetxController with BasicControllorFunctions {
-  var pageIndex = 0.obs;
+  var currentPageIndex = 0.obs;
   var totalPage = 5;
   UserInfoController _userInfoController = Get.find();
 
@@ -14,24 +14,24 @@ class JoinController extends GetxController with BasicControllorFunctions {
 
   void calcStartIndex() {
     if (_userInfoController.userInfo.value.nickName == null) {
-      pageIndex.value = 0;
+      currentPageIndex.value = 0;
     } else if (_userInfoController.userInfo.value.gender == null) {
-      pageIndex.value = 1;
+      currentPageIndex.value = 1;
     } else {
-      pageIndex.value = 0;
+      currentPageIndex.value = 0;
     }
   }
 
   void moveNext() {
-    if (pageIndex.value == totalPage) return;
+    if (currentPageIndex.value == totalPage) return;
 
-    pageIndex.value = pageIndex.value + 1;
+    currentPageIndex.value = currentPageIndex.value + 1;
   }
 
   void movePrev() {
-    if (pageIndex.value == 0) return;
+    if (currentPageIndex.value == 0) return;
 
-    pageIndex.value = pageIndex.value - 1;
+    currentPageIndex.value = currentPageIndex.value - 1;
   }
 
   Future<bool> canUseNickName(String nickName) async {
