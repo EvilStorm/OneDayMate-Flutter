@@ -4,12 +4,17 @@ import 'package:odm/controllers/contoller_user_info.dart';
 import 'package:get/get.dart';
 import 'package:odm/models/model_simple.dart';
 import 'package:odm/network/http_client.dart';
+import 'package:odm/screens/components/single_term.dart';
+import 'package:odm/utils/print.dart';
 
 class JoinController extends GetxController with BasicControllorFunctions {
   var currentPageIndex = 0.obs;
   var totalPage = 5;
-  UserInfoController _userInfoController = Get.find();
 
+  var termUsed = false.obs;
+  var termUserInfo = false.obs;
+
+  final UserInfoController _userInfoController = Get.find();
   TextEditingController nickNameController = TextEditingController();
 
   void calcStartIndex() {
@@ -34,6 +39,20 @@ class JoinController extends GetxController with BasicControllorFunctions {
     currentPageIndex.value = currentPageIndex.value - 1;
   }
 
+  void termsAllAgree() {
+    termUsed(true);
+    termUserInfo(true);
+  }
+
+  void showUsedTerm() {
+    Get.dialog(
+      SingleTerm(title: '이용약관', term: '<div>안녕하세ㅛㅇ</div>', callback: () {}),
+      barrierColor: Colors.transparent,
+      useSafeArea: true,
+    );
+  }
+
+  void showUsedInfoTerm() {}
   Future<bool> canUseNickName(String nickName) async {
     var response = await HttpClient.instance.get(
       '/user/check/nickName/$nickName',

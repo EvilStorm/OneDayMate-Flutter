@@ -62,10 +62,10 @@ class PageLocationSelect extends StatelessWidget {
           const SizedBox(
             height: Constants.sapceGap * 5,
           ),
-          const Button(
-            text: '현재 위치로 찾기',
-            isAccent: true,
-          ),
+          // const Button(
+          //   text: '현재 위치로 찾기',
+          //   isAccent: true,
+          // ),
           const SizedBox(
             height: Constants.sapceGap * 6,
           ),
