@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/constants.dart';
-import 'package:odm/controllers/controller_brief_addr.dart';
+import 'package:odm/controllers/controller_join.dart';
 import 'package:odm/screens/components/button.dart';
+import 'package:odm/screens/join/widgets/header.dart';
 
 class PageLocationSelect extends StatelessWidget {
   PageLocationSelect({Key? key}) : super(key: key);
-  final BirefAddressSearchController _addrSearchController = Get.find();
+  final JoinController _joinController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -15,22 +16,10 @@ class PageLocationSelect extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            '어디에 살고있나요?',
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          const SizedBox(
-            height: Constants.sapceGap * 3,
-          ),
-          Text(
-            '설정한 주소를 기반으로\n내 근처 모임을 알려드릴께요.',
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          const SizedBox(
-            height: Constants.sapceGap * 6,
-          ),
+          const Header(
+              title: '어디에 살고있나요?', desc: '설정한 주소를 기반으로\n내 근처 모임을 알려드릴께요.'),
           TextField(
-            controller: _addrSearchController.searchController,
+            controller: _joinController.searchController,
             autocorrect: false,
             decoration: InputDecoration(
               hintText: '동(읍,면)으로 검색 (ex. 삼성동)',
@@ -48,9 +37,9 @@ class PageLocationSelect extends StatelessWidget {
                 child: const Icon(Icons.search, color: Colors.black),
               ),
               suffixIcon: Visibility(
-                visible: _addrSearchController.searchController.text.isNotEmpty,
+                visible: _joinController.searchController.text.isNotEmpty,
                 child: GestureDetector(
-                  onTap: () => _addrSearchController.searchClear(),
+                  onTap: () => _joinController.searchClear(),
                   child: const Icon(
                     Icons.cancel,
                     color: Color(0xFFAFAFAF),
@@ -70,9 +59,9 @@ class PageLocationSelect extends StatelessWidget {
             height: Constants.sapceGap * 6,
           ),
           Visibility(
-            visible: _addrSearchController.searchController.text.isNotEmpty,
+            visible: _joinController.searchController.text.isNotEmpty,
             child: Text(
-              "'${_addrSearchController.searchController.text}' 검색 결과",
+              "'${_joinController.searchController.text}' 검색 결과",
               style: Theme.of(context).textTheme.subtitle2!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -83,14 +72,21 @@ class PageLocationSelect extends StatelessWidget {
           ),
           Expanded(
             child: ListView.separated(
-              itemCount: _addrSearchController.searchAddressList.length,
+              itemCount: _joinController.searchAddressList.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: Constants.sapceGap),
-                  child: Text(
-                    _addrSearchController.searchAddressList[index].fullAddress!,
-                    style: Theme.of(context).textTheme.bodyText2,
+                return GestureDetector(
+                  onTap: () {
+                    _joinController.selectedLocation.value =
+                        _joinController.searchAddressList[index].fullAddress!;
+                    _joinController.moveNext();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: Constants.sapceGap),
+                    child: Text(
+                      _joinController.searchAddressList[index].fullAddress!,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
                   ),
                 );
               },
@@ -98,6 +94,15 @@ class PageLocationSelect extends StatelessWidget {
                 return const Divider();
               },
             ),
+          ),
+          Button(
+            text: "다음",
+            action: () {
+              if (_joinController.validationLocation()) {
+                _joinController.moveNext();
+              }
+            },
+            isAccent: true,
           ),
         ],
       ),

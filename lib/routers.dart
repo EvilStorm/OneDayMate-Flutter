@@ -19,7 +19,7 @@ class Routers {
         binding: JoinProcessBinder()),
     GetPage(
       name: '/home',
-      page: () => const HomeScreen(),
+      page: () => HomeScreen(),
       binding: HomeBinder(),
     ),
   ];

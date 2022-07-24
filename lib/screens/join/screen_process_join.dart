@@ -2,23 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
-import 'package:odm/controllers/controller_brief_addr.dart';
 import 'package:odm/controllers/controller_join.dart';
-import 'package:odm/controllers/controller_sign.dart';
-import 'package:odm/screens/components/button.dart';
+import 'package:odm/screens/join/page_gender.dart';
 import 'package:odm/screens/join/page_location.dart';
+import 'package:odm/screens/join/page_nick.dart';
+import 'package:odm/screens/join/page_tag_category.dart';
 import 'package:odm/screens/join/page_term.dart';
-import 'package:odm/utils/print.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class JoinProcessScreen extends StatelessWidget {
   JoinProcessScreen({Key? key}) : super(key: key);
 
-  JoinController _controller = Get.find();
+  final JoinController _controller = Get.find();
 
   var pageList = [
-    PageLocationSelect(),
     PageTerm(),
+    PageNickName(),
+    PageLocationSelect(),
+    PageGender(),
+    PageTagCategory(),
   ];
 
   @override
@@ -47,7 +49,7 @@ class JoinProcessScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: Constants.sapceGap * 2),
                   child: LinearPercentIndicator(
-                    lineHeight: 6,
+                    lineHeight: 3,
                     percent: (_controller.currentPageIndex.value + 1) /
                         pageList.length,
                     progressColor: ColorStore.primaryColor,
@@ -58,15 +60,6 @@ class JoinProcessScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(Constants.sapceGap * 5),
                   child: pageList[_controller.currentPageIndex.value],
                 )),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Constants.sapceGap * 5),
-                  child: Button(
-                    text: "다음",
-                    action: _controller.moveNext,
-                    isAccent: true,
-                  ),
-                ),
               ],
             ),
           ),

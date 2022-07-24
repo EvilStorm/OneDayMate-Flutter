@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/shims/dart_ui.dart';
-import 'package:odm/utils/device_util.dart';
+import 'package:get/get.dart';
+import 'package:odm/constants/constants.dart';
+import 'package:odm/screens/components/outline_accent_button.dart';
 
 class SingleTerm extends StatelessWidget {
   final String title;
-  final String term;
+  final String? term;
   final VoidCallback callback;
   const SingleTerm({
     Key? key,
@@ -17,30 +19,51 @@ class SingleTerm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const SizedBox(
-            height: 16.0,
-          ),
-          Text('이용약관',
-              textAlign: TextAlign.end,
-              textDirection: TextDirection.rtl,
-              style: Theme.of(context).textTheme.headline6),
-          Expanded(
-            child: Container(
-              decoration:
-                  BoxDecoration(color: Theme.of(context).dialogBackgroundColor),
-              margin: const EdgeInsets.only(top: 16.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Html(
-                  data: term,
+      elevation: 10,
+      backgroundColor: const Color(0xFFF0F0F0),
+      child: Padding(
+        padding: const EdgeInsets.all(Constants.sapceGap * 4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(
+              height: 16.0,
+            ),
+            Text(title,
+                textAlign: TextAlign.end,
+                textDirection: TextDirection.rtl,
+                style: Theme.of(context).textTheme.headline6),
+            const SizedBox(
+              height: Constants.sapceGap * 1,
+            ),
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xFFF0F0F0),
+                ),
+                margin: const EdgeInsets.only(top: 16.0),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Html(
+                    data: term,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(
+              height: Constants.sapceGap * 3,
+            ),
+            ButtonLineAccent(
+              text: '확인',
+              action: () {
+                callback();
+                Get.back();
+              },
+              isAccent: true,
+            )
+          ],
+        ),
       ),
     );
   }

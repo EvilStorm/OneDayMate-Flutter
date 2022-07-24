@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:odm/controllers/controller_sign.dart';
+import 'package:odm/screens/components/button.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
+  final SignController _signController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Text('Home'),
+          child: Column(
+            children: [
+              Text('Home2'),
+              Button(
+                text: '로그아웃',
+                action: () {
+                  _signController.signOut();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

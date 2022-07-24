@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
+import 'package:odm/screens/components/slider_shape.dart';
 
 class Themes {
   static final lightTheme = ThemeData.light().copyWith(
@@ -38,6 +39,9 @@ class Themes {
       sliderTheme: const SliderThemeData(
         showValueIndicator: ShowValueIndicator.always,
         valueIndicatorColor: Color(0xFFF56E22),
+        thumbColor: ColorStore.primaryColor,
+        activeTrackColor: ColorStore.primaryColor,
+        trackShape: SliderCustomTrackShape(),
       ),
       textTheme: const TextTheme(
         headline1: TextStyle(

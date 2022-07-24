@@ -1,27 +1,64 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:odm/controllers/basic_controller_fn.dart';
+import 'package:odm/controllers/components/piece_brief_addr.dart';
+import 'package:odm/controllers/components/piece_gender_age.dart';
+import 'package:odm/controllers/components/piece_join_nick.dart';
+import 'package:odm/controllers/components/piece_join_term.dart';
+import 'package:odm/controllers/components/piece_tag_category.dart';
 import 'package:odm/controllers/contoller_user_info.dart';
 import 'package:get/get.dart';
-import 'package:odm/models/model_simple.dart';
+import 'package:odm/models/model_user.dart';
 import 'package:odm/network/http_client.dart';
-import 'package:odm/screens/components/single_term.dart';
 import 'package:odm/utils/print.dart';
 
-class JoinController extends GetxController with BasicControllorFunctions {
+class JoinController extends GetxController
+    with
+        BasicControllorFunctions,
+        JoinTermPiece,
+        JoinNickPiece,
+        BriefSearchAddressPiece,
+        GenderAgePiece,
+        TagCategoryPiece {
   var currentPageIndex = 0.obs;
   var totalPage = 5;
 
-  var termUsed = false.obs;
-  var termUserInfo = false.obs;
-
   final UserInfoController _userInfoController = Get.find();
-  TextEditingController nickNameController = TextEditingController();
+
+  Timer? _nickNameReqTimer;
+  Timer? _searchTmer;
+
+  @override
+  void onInit() {
+    nickNameController.addListener(() {
+      _nickNameReqTimer?.cancel();
+      _nickNameReqTimer =
+          Timer.periodic(const Duration(milliseconds: 500), (timer) {
+        checkNickName(nickNameController.text.trim());
+        timer.cancel();
+      });
+    });
+
+    searchController.addListener(() {
+      _searchTmer?.cancel();
+      _searchTmer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+        if (searchController.text.isEmpty) {
+          searchClear();
+          return;
+        }
+        searchBriefAddress();
+        timer.cancel();
+      });
+    });
+
+    getCategory();
+
+    super.onInit();
+  }
 
   void calcStartIndex() {
     if (_userInfoController.userInfo.value.nickName == null) {
       currentPageIndex.value = 0;
-    } else if (_userInfoController.userInfo.value.gender == null) {
-      currentPageIndex.value = 1;
     } else {
       currentPageIndex.value = 0;
     }
@@ -39,36 +76,35 @@ class JoinController extends GetxController with BasicControllorFunctions {
     currentPageIndex.value = currentPageIndex.value - 1;
   }
 
-  void termsAllAgree() {
-    termUsed(true);
-    termUserInfo(true);
-  }
+  void done() async {
+    try {
+      showLoadingDialog();
+      var temp = [];
+      for (var selectedCategoryType in selectedCategoryList) {
+        temp.add(categoryList.elementAt(selectedCategoryType).sId);
+      }
+      var response = await HttpClient.instance.patch(
+        '/user',
+        body: {
+          'nickName': nickNameController.text.trim(),
+          'location': selectedLocation.value.trim(),
+          'age': age.value.round(),
+          'gender': gender.value == Gender.MALE,
+          'tagCategory': temp,
+        },
+      );
 
-  void showUsedTerm() {
-    Get.dialog(
-      SingleTerm(title: '이용약관', term: '<div>안녕하세ㅛㅇ</div>', callback: () {}),
-      barrierColor: Colors.transparent,
-      useSafeArea: true,
-    );
-  }
-
-  void showUsedInfoTerm() {}
-  Future<bool> canUseNickName(String nickName) async {
-    var response = await HttpClient.instance.get(
-      '/user/check/nickName/$nickName',
-    );
-
-    if (response['code'] == 200) {
-      var respModel = SimpleModel.fromJson(response['data']);
-      if (respModel.result == 1) {
-        return true;
+      if (response['code'] == 200) {
+        var user = UserModel.fromJson(response['data']);
+        UserInfoController userInfo = Get.find<UserInfoController>();
+        userInfo.setUserInfo(user, false);
       } else {
         showMessage(response['data']['message']);
-        return false;
       }
-    } else {
-      showMessage(response['data']['message']);
-      return false;
+    } catch (e) {
+      Print.e(e);
+    } finally {
+      hideLoadingDialog();
     }
   }
 
@@ -84,5 +120,33 @@ class JoinController extends GetxController with BasicControllorFunctions {
       showMessage(response['data']['message']);
       return false;
     }
+  }
+
+  bool validationNick() {
+    if (nickNameController.text == '' || nickNameController.text.length < 2) {
+      showMessage('2자 이상의 닉네임을 입력해주세요');
+      return false;
+    }
+    if (checkedNickName.value == false) {
+      showMessage('닉네임을 변경해주세요');
+      return false;
+    }
+    return true;
+  }
+
+  bool validationTerms() {
+    if (termUsed.value == false || termUserInfo.value == false) {
+      showMessage('약관을 읽고 체크해주세요.');
+      return false;
+    }
+    return true;
+  }
+
+  bool validationLocation() {
+    if (selectedLocation.isEmpty) {
+      showMessage('활동지역을 등록해주세요.');
+      return false;
+    }
+    return true;
   }
 }
