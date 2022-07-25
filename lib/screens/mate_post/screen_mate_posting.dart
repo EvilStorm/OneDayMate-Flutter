@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/constants.dart';
-import 'package:odm/controllers/constroller_posting.dart';
+import 'package:odm/controllers/controller_posting.dart';
 import 'package:odm/screens/components/button.dart';
 import 'package:odm/screens/mate_post/posting_date_page.dart';
+import 'package:odm/screens/mate_post/posting_tag_category_page.dart';
 import 'package:odm/screens/mate_post/posting_tag_page.dart';
 import 'package:odm/screens/mate_post/posting_title_page.dart';
 import 'package:odm/screens/mate_post/widgets/posting_progress.dart';
@@ -14,6 +15,7 @@ class MatePostingScreen extends StatelessWidget {
 
   List<Widget> pageList = [
     TitlePage(),
+    PostingTagCategoryPage(),
     TagPage(),
     DatePage(),
   ];

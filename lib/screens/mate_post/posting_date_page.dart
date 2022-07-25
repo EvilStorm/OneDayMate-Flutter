@@ -5,7 +5,7 @@ import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
-import 'package:odm/controllers/constroller_posting.dart';
+import 'package:odm/controllers/controller_posting.dart';
 import 'package:odm/screens/components/about_date.dart';
 import 'package:odm/screens/components/button.dart';
 import 'package:odm/screens/components/calendar.dart';

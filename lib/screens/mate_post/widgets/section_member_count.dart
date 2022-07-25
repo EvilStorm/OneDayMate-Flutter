@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/color_store.dart';
-import 'package:odm/controllers/constroller_posting.dart';
+import 'package:odm/controllers/controller_posting.dart';
 
 class MemberCount extends StatelessWidget {
   final PostingController _controller = Get.find();

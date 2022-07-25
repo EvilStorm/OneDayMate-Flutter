@@ -10,6 +10,7 @@ import 'package:odm/constants/key_store.dart';
 import 'package:odm/controllers/basic_controller_fn.dart';
 import 'package:odm/controllers/components/piece_posting_title.dart';
 import 'package:odm/controllers/components/piece_poting_image.dart';
+import 'package:odm/controllers/components/piece_tag_category.dart';
 import 'package:odm/controllers/controller_main.dart';
 import 'package:odm/controllers/model_mate.dart';
 import 'package:odm/models/model_brief_addr.dart';
@@ -19,9 +20,13 @@ import 'package:odm/screens/mate_post/widgets/added_picture.dart';
 import 'package:odm/utils/print.dart';
 
 class PostingController extends GetxController
-    with BasicControllorFunctions, PostionImagePiece, PostingTitlePiece {
+    with
+        BasicControllorFunctions,
+        PostionImagePiece,
+        PostingTitlePiece,
+        TagCategoryPiece {
   var pageIndex = 0.obs;
-  var maxPageIndex = 3;
+  var maxPageIndex = 4;
 
   RxList<String> addedTags = <String>[].obs;
 
@@ -66,6 +71,9 @@ class PostingController extends GetxController
 
   @override
   void onInit() {
+    getCategory();
+    setSelectedMaxCount(1);
+
     titleTextController.addListener(() {
       titleValidation();
     });

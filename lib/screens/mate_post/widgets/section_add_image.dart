@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/constants.dart';
-import 'package:odm/controllers/constroller_posting.dart';
+import 'package:odm/controllers/controller_posting.dart';
 import 'package:odm/screens/mate_post/widgets/add_picture_icon.dart';
 import 'package:odm/screens/mate_post/widgets/added_picture.dart';
 

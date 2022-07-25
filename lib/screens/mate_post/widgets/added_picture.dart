@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:odm/controllers/constroller_posting.dart';
+import 'package:odm/controllers/controller_posting.dart';
 
 class PostingAddedImage extends StatelessWidget {
   final PostingController _controller = Get.find();

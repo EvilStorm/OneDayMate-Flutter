@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
-import 'package:odm/controllers/constroller_posting.dart';
+import 'package:odm/controllers/controller_posting.dart';
 import 'package:odm/screens/components/search_bar.dart';
 import 'package:odm/screens/mate_post/widgets/section_header.dart';
 import 'package:odm/screens/mate_post/widgets/tag_hot.dart';
@@ -23,7 +23,7 @@ class TagPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SearchBar(
-            hint: '모임에 주재에 맞게 테그를 추가해주세요.',
+            hint: '모임에 주재에 맞게 태그를 추가해주세요.',
             controller: _controller.searchController,
           ),
           Stack(
@@ -35,7 +35,7 @@ class TagPage extends StatelessWidget {
                   const SizedBox(
                     height: Constants.sapceGap * 6,
                   ),
-                  const SectionHeaderText(title: 'HOT 테그'),
+                  const SectionHeaderText(title: 'HOT 태그'),
                   const SizedBox(
                     height: Constants.sapceGap * 2,
                   ),
@@ -56,7 +56,7 @@ class TagPage extends StatelessWidget {
                   const SizedBox(
                     height: Constants.sapceGap * 8,
                   ),
-                  const SectionHeaderText(title: '등록 테그'),
+                  const SectionHeaderText(title: '등록 태그'),
                   const SizedBox(
                     height: Constants.sapceGap * 3,
                   ),
