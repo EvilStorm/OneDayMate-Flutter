@@ -8,30 +8,26 @@ import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/key_store.dart';
 import 'package:odm/controllers/basic_controller_fn.dart';
+import 'package:odm/controllers/components/piece_posting_title.dart';
+import 'package:odm/controllers/components/piece_poting_image.dart';
 import 'package:odm/controllers/controller_main.dart';
 import 'package:odm/controllers/model_mate.dart';
 import 'package:odm/models/model_brief_addr.dart';
 import 'package:odm/models/model_tag.dart';
 import 'package:odm/network/http_client.dart';
+import 'package:odm/screens/mate_post/widgets/added_picture.dart';
 import 'package:odm/utils/print.dart';
 
-class PostingController extends GetxController with BasicControllorFunctions {
-  final storage = GetStorage();
-  final FirebaseStorage fstorage = FirebaseStorage.instance;
-
+class PostingController extends GetxController
+    with BasicControllorFunctions, PostionImagePiece, PostingTitlePiece {
   var pageIndex = 0.obs;
   var maxPageIndex = 3;
 
-  RxList<String> images = <String>[].obs;
   RxList<String> addedTags = <String>[].obs;
-  int maxImageCount = 5;
 
-  final TextEditingController titleTextController = TextEditingController();
-  final TextEditingController descTextController = TextEditingController();
   final TextEditingController searchController = TextEditingController();
   final TextEditingController localeController = TextEditingController();
 
-  final ImagePicker _picker = ImagePicker();
   final RxList<TagModel> hotTagList = <TagModel>[].obs;
   final RxList<TagModel> searchTagList = <TagModel>[].obs;
   final RxList<BriefAddressModel> searchLocaleList = <BriefAddressModel>[].obs;
@@ -39,6 +35,7 @@ class PostingController extends GetxController with BasicControllorFunctions {
   final RxBool tagIsNotFound = false.obs;
   final RxBool showTagSearchResult = false.obs;
   final RxBool tagSearchDone = false.obs;
+
   var selectedDate = DateTime.now().obs;
   var dateSelected = false.obs;
   var localeSelected = BriefAddressModel().obs;
@@ -56,7 +53,7 @@ class PostingController extends GetxController with BasicControllorFunctions {
   var ageDontCare = true.obs;
   var ageRange = RangeValues(0, 1).obs;
 
-  List<String> imageUrl = [];
+  var titlePageValidation = false.obs;
 
   void clearSearch() {
     searchController.text = "";
@@ -69,6 +66,13 @@ class PostingController extends GetxController with BasicControllorFunctions {
 
   @override
   void onInit() {
+    titleTextController.addListener(() {
+      titleValidation();
+    });
+    descTextController.addListener(() {
+      titleValidation();
+    });
+
     searchController.addListener(() {
       if (searchController.text.isEmpty) {
         return;
@@ -227,46 +231,6 @@ class PostingController extends GetxController with BasicControllorFunctions {
       return;
     }
     pageIndex.value = pageIndex.value - 1;
-  }
-
-  void addIamge() async {
-    if (images.length >= maxImageCount) {
-      return;
-    }
-
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      images.add(image.path);
-    }
-  }
-
-  Future<bool> postingImages() async {
-    for (var image in images) {
-      String? result = await fileUpload(image);
-      if (result != null) {
-        imageUrl.add(result);
-      }
-    }
-    return true;
-  }
-
-  Future<String?> fileUpload(String path) async {
-    try {
-      String uploadFileName =
-          '${storage.read(KeyStore.userID_I)}_${DateTime.now().millisecondsSinceEpoch}';
-
-      Reference ref = fstorage.ref().child('images/$uploadFileName');
-      await ref.putFile(File(path));
-      String imageUrl = await ref.getDownloadURL();
-      return imageUrl;
-    } catch (e) {
-      Print.e(e);
-      return null;
-    }
-  }
-
-  void removeImage(int index) async {
-    images.removeAt(index);
   }
 
   void postStyleMate() async {
