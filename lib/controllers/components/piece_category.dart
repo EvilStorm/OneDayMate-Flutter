@@ -38,7 +38,7 @@ class CategoryPiece {
     if (categoryList.isNotEmpty) return;
 
     var response = await HttpClient.instance.get(
-      '/tagCategory',
+      '/category',
     );
 
     if (response['code'] == 200) {

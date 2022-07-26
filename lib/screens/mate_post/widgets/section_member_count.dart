@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/color_store.dart';
+import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/controller_posting.dart';
 
 class MemberCount extends StatelessWidget {
@@ -18,9 +19,11 @@ class MemberCount extends StatelessWidget {
         width: 114,
         height: 52,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: ColorStore.colorF6,
-        ),
+            borderRadius: BorderRadius.circular(Constants.sapceGap * 3),
+            border: Border.all(
+              width: 1,
+              color: ColorStore.color89,
+            )),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,

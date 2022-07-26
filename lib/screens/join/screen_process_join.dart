@@ -6,7 +6,7 @@ import 'package:odm/controllers/controller_join.dart';
 import 'package:odm/screens/join/page_gender.dart';
 import 'package:odm/screens/join/page_location.dart';
 import 'package:odm/screens/join/page_nick.dart';
-import 'package:odm/screens/join/page_tag_category.dart';
+import 'package:odm/screens/join/page_category.dart';
 import 'package:odm/screens/join/page_term.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 

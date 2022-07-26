@@ -20,6 +20,7 @@ class DatePage extends StatelessWidget {
   void showCalendarSelector(BuildContext context) {
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
@@ -27,7 +28,7 @@ class DatePage extends StatelessWidget {
           DateTime? _selectedDate;
           return SafeArea(
             child: SizedBox(
-              height: 480,
+              height: 490,
               child: Padding(
                 padding: const EdgeInsets.all(Constants.sapceGap * 2),
                 child: Column(
@@ -189,13 +190,16 @@ class DatePage extends StatelessWidget {
     return Obx(
       () => Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SectionHeaderText(title: '인원을 입력해주세요'),
           const SizedBox(
             height: Constants.sapceGap * 3,
           ),
-          MemberCount(),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: MemberCount(),
+          ),
           const SizedBox(
             height: Constants.sapceGap * 6,
           ),
@@ -258,7 +262,7 @@ class DatePage extends StatelessWidget {
           const SizedBox(
             height: Constants.sapceGap * 6,
           ),
-          const SectionHeaderText(title: '날자와 시간'),
+          const SectionHeaderText(title: '날짜와 시간'),
           const SizedBox(
             height: Constants.sapceGap * 3,
           ),
@@ -268,11 +272,16 @@ class DatePage extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: ColorStore.colorF6,
+                borderRadius: BorderRadius.circular(Constants.sapceGap * 3),
+                border: Border.all(
+                  width: 1,
+                  color: ColorStore.color89,
+                ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(Constants.sapceGap * 2),
+                padding: const EdgeInsets.symmetric(
+                    vertical: Constants.sapceGap * 4,
+                    horizontal: Constants.sapceGap * 2),
                 child: Row(
                   children: [
                     SvgPicture.asset('assets/images/icon_calendar.svg'),
@@ -301,11 +310,16 @@ class DatePage extends StatelessWidget {
             onTap: () => showTimeSelector(context),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: ColorStore.colorF6,
+                borderRadius: BorderRadius.circular(Constants.sapceGap * 3),
+                border: Border.all(
+                  width: 1,
+                  color: ColorStore.color89,
+                ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(Constants.sapceGap * 2),
+                padding: const EdgeInsets.symmetric(
+                    vertical: Constants.sapceGap * 4,
+                    horizontal: Constants.sapceGap * 2),
                 child: Row(
                   children: [
                     SvgPicture.asset('assets/images/icon_time.svg'),
@@ -338,11 +352,16 @@ class DatePage extends StatelessWidget {
             onTap: () => showLocaleSelector(context),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: ColorStore.colorF6,
+                borderRadius: BorderRadius.circular(Constants.sapceGap * 3),
+                border: Border.all(
+                  width: 1,
+                  color: ColorStore.color89,
+                ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(Constants.sapceGap * 2),
+                padding: const EdgeInsets.symmetric(
+                    vertical: Constants.sapceGap * 4,
+                    horizontal: Constants.sapceGap * 2),
                 child: Row(
                   children: [
                     SvgPicture.asset('assets/images/icon_map.svg'),
@@ -363,6 +382,10 @@ class DatePage extends StatelessWidget {
               ),
             ),
           ),
+          Spacer(),
+          Button(
+            text: '모임 만들기',
+          )
         ],
       ),
     );

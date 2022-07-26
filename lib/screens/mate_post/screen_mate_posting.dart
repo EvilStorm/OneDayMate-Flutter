@@ -4,7 +4,7 @@ import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/controller_posting.dart';
 import 'package:odm/screens/components/button.dart';
 import 'package:odm/screens/mate_post/posting_date_page.dart';
-import 'package:odm/screens/mate_post/posting_tag_category_page.dart';
+import 'package:odm/screens/mate_post/posting_category_page.dart';
 import 'package:odm/screens/mate_post/posting_tag_page.dart';
 import 'package:odm/screens/mate_post/posting_title_page.dart';
 import 'package:odm/screens/mate_post/widgets/posting_progress.dart';
@@ -36,20 +36,23 @@ class MatePostingScreen extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: Constants.sapceGap * 5),
-            child: Obx(
-              () => Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  PostingProgress(),
-                  const SizedBox(
-                    height: Constants.sapceGap * 6,
-                  ),
-                  Expanded(child: pageList[_controller.pageIndex.value]),
-                ],
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Constants.sapceGap * 5),
+              child: Obx(
+                () => Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    PostingProgress(),
+                    const SizedBox(
+                      height: Constants.sapceGap * 6,
+                    ),
+                    Expanded(child: pageList[_controller.pageIndex.value]),
+                  ],
+                ),
               ),
             ),
           ),

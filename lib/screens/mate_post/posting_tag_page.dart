@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/controller_posting.dart';
+import 'package:odm/screens/components/button.dart';
 import 'package:odm/screens/components/search_bar.dart';
 import 'package:odm/screens/mate_post/widgets/section_header.dart';
-import 'package:odm/screens/mate_post/widgets/tag_hot.dart';
+import 'package:odm/screens/mate_post/widgets/tag_item.dart';
 
 class TagPage extends StatelessWidget {
   TagPage({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class TagPage extends StatelessWidget {
     return Obx(
       () => Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SearchBar(
             hint: '모임에 주재에 맞게 태그를 추가해주세요.',
@@ -44,7 +45,7 @@ class TagPage extends StatelessWidget {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: _controller.hotTagList.length,
-                      itemBuilder: (context, index) => HotTag(
+                      itemBuilder: (context, index) => TagItem(
                         tag: _controller.hotTagList.elementAt(index).tag ?? "",
                         onClick: _controller.addTag,
                       ),
@@ -61,17 +62,17 @@ class TagPage extends StatelessWidget {
                     height: Constants.sapceGap * 3,
                   ),
                   Wrap(
+                    spacing: Constants.sapceGap * 3,
+                    runSpacing: Constants.sapceGap * 3,
                     children: _controller.addedTags
                         .map(
-                          (element) => HotTag(
+                          (element) => TagItem(
                             tag: element,
                             onClick: _controller.removeTag,
                             tagColor: Theme.of(context).primaryColor,
                           ),
                         )
                         .toList(),
-                    spacing: Constants.sapceGap * 3,
-                    runSpacing: Constants.sapceGap * 3,
                   ),
                 ],
               ),
@@ -151,6 +152,15 @@ class TagPage extends StatelessWidget {
                 ),
               )
             ],
+          ),
+          const Spacer(),
+          Button(
+            text: '다음',
+            isDisable: _controller.addedTags.isEmpty,
+            isAccent: true,
+            action: () {
+              _controller.next();
+            },
           ),
         ],
       ),

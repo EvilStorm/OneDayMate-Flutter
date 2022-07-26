@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:odm/constants/constants.dart';
 
-class HotTag extends StatelessWidget {
+class TagItem extends StatelessWidget {
   final Function? onClick;
   final String tag;
   final Color? tagColor;
   final Color? borderColor;
-  const HotTag({
+  const TagItem({
     Key? key,
     this.onClick,
     required this.tag,
