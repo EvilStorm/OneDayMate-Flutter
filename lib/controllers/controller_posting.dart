@@ -10,7 +10,7 @@ import 'package:odm/constants/key_store.dart';
 import 'package:odm/controllers/basic_controller_fn.dart';
 import 'package:odm/controllers/components/piece_posting_title.dart';
 import 'package:odm/controllers/components/piece_poting_image.dart';
-import 'package:odm/controllers/components/piece_tag_category.dart';
+import 'package:odm/controllers/components/piece_category.dart';
 import 'package:odm/controllers/controller_main.dart';
 import 'package:odm/controllers/model_mate.dart';
 import 'package:odm/models/model_brief_addr.dart';
@@ -24,7 +24,7 @@ class PostingController extends GetxController
         BasicControllorFunctions,
         PostionImagePiece,
         PostingTitlePiece,
-        TagCategoryPiece {
+        CategoryPiece {
   var pageIndex = 0.obs;
   var maxPageIndex = 4;
 

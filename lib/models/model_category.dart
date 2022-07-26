@@ -1,16 +1,15 @@
 import 'package:odm/models/model_tag.dart';
 
-class TagCategoryModel {
+class CategoryModel {
   String? sId;
   String? category;
   int? type;
   String? iconUrl;
   List<TagModel>? tags;
 
-  TagCategoryModel(
-      {this.sId, this.category, this.type, this.iconUrl, this.tags});
+  CategoryModel({this.sId, this.category, this.type, this.iconUrl, this.tags});
 
-  TagCategoryModel.fromJson(Map<String, dynamic> json) {
+  CategoryModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     category = json['category'];
     type = json['type'];

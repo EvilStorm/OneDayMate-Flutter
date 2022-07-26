@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/controller_posting.dart';
-import 'package:odm/models/model_tag_category.dart';
+import 'package:odm/models/model_category.dart';
 import 'package:odm/screens/components/button.dart';
 import 'package:odm/screens/join/widgets/tag_category_item.dart';
 import 'package:odm/screens/mate_post/widgets/section_header.dart';
@@ -39,7 +39,7 @@ class PostingTagCategoryPage extends StatelessWidget {
                 crossAxisSpacing: 20,
               ),
               itemBuilder: (BuildContext context, int index) {
-                TagCategoryModel item = _postingController.categoryList[index];
+                CategoryModel item = _postingController.categoryList[index];
                 final selected =
                     _postingController.selectedCategoryList.contains(index);
                 return GestureDetector(

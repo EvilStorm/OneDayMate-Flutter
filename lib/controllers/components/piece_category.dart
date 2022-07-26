@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:odm/models/model_tag_category.dart';
+import 'package:odm/models/model_category.dart';
 import 'package:odm/network/http_client.dart';
 import 'package:odm/utils/print.dart';
 
-class TagCategoryPiece {
-  RxList<TagCategoryModel> categoryList = <TagCategoryModel>[].obs;
+class CategoryPiece {
+  RxList<CategoryModel> categoryList = <CategoryModel>[].obs;
   RxList<int> selectedCategoryList = <int>[].obs;
   var maxSelectedCount = 3;
 
@@ -43,7 +43,7 @@ class TagCategoryPiece {
 
     if (response['code'] == 200) {
       categoryList.value = (response['data'] as List)
-          .map((item) => TagCategoryModel.fromJson(item))
+          .map((item) => CategoryModel.fromJson(item))
           .toList();
     }
   }

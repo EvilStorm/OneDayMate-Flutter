@@ -5,7 +5,7 @@ import 'package:odm/controllers/components/piece_brief_addr.dart';
 import 'package:odm/controllers/components/piece_gender_age.dart';
 import 'package:odm/controllers/components/piece_join_nick.dart';
 import 'package:odm/controllers/components/piece_join_term.dart';
-import 'package:odm/controllers/components/piece_tag_category.dart';
+import 'package:odm/controllers/components/piece_category.dart';
 import 'package:odm/controllers/contoller_user_info.dart';
 import 'package:get/get.dart';
 import 'package:odm/models/model_user.dart';
@@ -19,7 +19,7 @@ class JoinController extends GetxController
         JoinNickPiece,
         BriefSearchAddressPiece,
         GenderAgePiece,
-        TagCategoryPiece {
+        CategoryPiece {
   var currentPageIndex = 0.obs;
   var totalPage = 5;
 
@@ -90,7 +90,7 @@ class JoinController extends GetxController
           'location': selectedLocation.value.trim(),
           'age': age.value.round(),
           'gender': gender.value == Gender.MALE,
-          'tagCategory': temp,
+          'category': temp,
         },
       );
 
