@@ -56,7 +56,7 @@ class PostingController extends GetxController
   var maxMemberCount = 8;
 
   var ageDontCare = true.obs;
-  var ageRange = RangeValues(0, 1).obs;
+  var ageRange = RangeValues(20, 35).obs;
 
   var titlePageValidation = false.obs;
 
@@ -255,8 +255,9 @@ class PostingController extends GetxController
           'images': imageUrl,
           'title': titleTextController.text.trim(),
           'message': descTextController.text.trim(),
-          'locationStr': localeSelected.value.dong,
+          'locationStr': localeSelected.value.fullAddress,
           'mateDate': selectedDate.value.toString(),
+          'category': categoryList[selectedCategoryList[0]].sId,
           'tags': addedTags,
           'maxAge': ageDontCare.value ? 0 : ageRange.value.end.round(),
           'minAge': ageDontCare.value ? 0 : ageRange.value.start.round(),

@@ -382,9 +382,11 @@ class DatePage extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Button(
+            isAccent: true,
             text: '모임 만들기',
+            action: (){},
           )
         ],
       ),
