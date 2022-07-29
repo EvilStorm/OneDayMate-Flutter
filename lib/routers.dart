@@ -1,7 +1,9 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:odm/binders/binder_home.dart';
 import 'package:odm/binders/binder_join_process.dart';
+import 'package:odm/binders/binder_mating_detail.dart';
 import 'package:odm/binders/binder_posting.dart';
+import 'package:odm/screens/detail/screen_detail.dart';
 import 'package:odm/screens/home/screen_home.dart';
 import 'package:odm/screens/join/screen_process_join.dart';
 import 'package:odm/screens/mate_post/screen_mate_posting.dart';
@@ -10,7 +12,7 @@ import 'package:odm/screens/splash/screen_splash.dart';
 
 class Routers {
   final allPageRouter = [
-    GetPage(name: '/', page: () => const SplashScreen()),
+    GetPage(name: '/', page: () => SplashScreen()),
     GetPage(
       name: '/signIn',
       page: () => const SignInScreen(),
@@ -28,5 +30,9 @@ class Routers {
         name: '/mating/create',
         page: () => MatePostingScreen(),
         binding: PostingBinder()),
+    GetPage(
+        name: '/mating/detail',
+        page: () => MateDetailScreen(),
+        binding: MateDetailBinder()),
   ];
 }

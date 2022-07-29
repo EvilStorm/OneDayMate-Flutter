@@ -17,6 +17,7 @@ import 'package:odm/models/model_brief_addr.dart';
 import 'package:odm/models/model_tag.dart';
 import 'package:odm/network/http_client.dart';
 import 'package:odm/screens/mate_post/widgets/added_picture.dart';
+import 'package:odm/screens/sign/widget_add_account_email.dart';
 import 'package:odm/utils/print.dart';
 
 class PostingController extends GetxController
@@ -53,12 +54,14 @@ class PostingController extends GetxController
   Timer? _searchTmer;
 
   var memberCount = 2.obs;
-  var maxMemberCount = 8;
+  var maxMemberCount = 108;
 
   var ageDontCare = true.obs;
   var ageRange = RangeValues(20, 35).obs;
 
   var titlePageValidation = false.obs;
+
+  var canPosting = false.obs;
 
   void clearSearch() {
     searchController.text = "";
@@ -255,9 +258,10 @@ class PostingController extends GetxController
           'images': imageUrl,
           'title': titleTextController.text.trim(),
           'message': descTextController.text.trim(),
-          'locationStr': localeSelected.value.fullAddress,
+          'locationStr': localeSelected.value.dong,
           'mateDate': selectedDate.value.toString(),
           'category': categoryList[selectedCategoryList[0]].sId,
+          'memberLimit': memberCount.value,
           'tags': addedTags,
           'maxAge': ageDontCare.value ? 0 : ageRange.value.end.round(),
           'minAge': ageDontCare.value ? 0 : ageRange.value.start.round(),
@@ -266,8 +270,8 @@ class PostingController extends GetxController
 
       if (response['code'] == 200) {
         var mate = MateModel.fromJson(response['data']);
-        MainController _controller = Get.find();
-        _controller.addMainMate(mate);
+        // MainController _controller = Get.find();
+        // _controller.addMainMate(mate);
 
         Get.back();
       } else {
@@ -314,9 +318,9 @@ class PostingController extends GetxController
       return false;
     }
 
-    selectedDate.value.subtract(Duration(
-        hours: selectedTime.value.hour, minutes: selectedTime.value.minute));
-
+    // selectedDate.value.subtract(Duration(
+    //     hours: selectedTime.value.hour, minutes: selectedTime.value.minute));
+    canPosting(true);
     return true;
   }
 }

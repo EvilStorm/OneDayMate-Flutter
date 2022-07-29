@@ -17,7 +17,7 @@ class MainController extends GetxController with BasicControllorFunctions {
   }
 
   void getMainMate() async {
-    final response = await HttpClient.instance.get("/mate/page/$pageCount");
+    final response = await HttpClient.instance.get("/main");
 
     if (response['code'] == 200) {
       mateList.value = (response['data'] as List)

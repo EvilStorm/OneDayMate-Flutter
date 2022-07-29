@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:odm/controllers/model_brief_user.dart';
 import 'package:odm/controllers/model_mate_member.dart';
+import 'package:odm/models/model_category.dart';
 import 'package:odm/models/model_tag.dart';
 
 class MateModel {
@@ -10,6 +12,7 @@ class MateModel {
   String? message;
   int? memberLimit;
   String? locationStr;
+  List<CategoryModel>? category;
   List<TagModel>? tags;
   bool? isShow;
   DateTime? mateDate;
@@ -24,6 +27,7 @@ class MateModel {
       this.message,
       this.memberLimit,
       this.locationStr,
+      this.category,
       this.tags,
       this.isShow,
       this.mateDate,
@@ -38,6 +42,12 @@ class MateModel {
     message = json['message'];
     memberLimit = json['memberLimit'];
     locationStr = json['locationStr'];
+    if (json['category'] != null) {
+      category = <CategoryModel>[];
+      json['category'].forEach((v) {
+        category!.add(CategoryModel.fromJson(v));
+      });
+    }
     if (json['tags'] != null) {
       tags = <TagModel>[];
       json['tags'].forEach((v) {
@@ -61,6 +71,9 @@ class MateModel {
     data['message'] = message;
     data['memberLimit'] = memberLimit;
     data['locationStr'] = locationStr;
+    if (category != null) {
+      data['category'] = category!.map((v) => v.toJson()).toList();
+    }
     if (tags != null) {
       data['tags'] = tags!.map((v) => v.toJson()).toList();
     }

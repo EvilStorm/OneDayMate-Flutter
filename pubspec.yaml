@@ -1,6 +1,6 @@
 name: odm
 description: A new Flutter project.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
@@ -41,7 +41,6 @@ dependencies:
   package_info_plus: ^1.4.2
   percent_indicator: ^4.2.2
 
-  
 dev_dependencies:
   flutter_test:
     sdk: flutter

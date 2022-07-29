@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:odm/controllers/controller_splash.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class SplashScreen extends GetView<SplashController> {
-  const SplashScreen({Key? key}) : super(key: key);
+  SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Get.put(SplashController());
+    initializeDateFormatting(Localizations.localeOf(context).languageCode);
 
     return Scaffold(
       body: Container(

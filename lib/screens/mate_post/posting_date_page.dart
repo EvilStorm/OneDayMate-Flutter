@@ -386,7 +386,12 @@ class DatePage extends StatelessWidget {
           Button(
             isAccent: true,
             text: '모임 만들기',
-            action: (){},
+            action: () {
+              if (!_controller.postingValidation()) {
+                return;
+              }
+              _controller.postStyleMate();
+            },
           )
         ],
       ),

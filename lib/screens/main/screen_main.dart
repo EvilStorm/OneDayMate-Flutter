@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/constants.dart';
+import 'package:odm/controllers/controller_main.dart';
+import 'package:odm/screens/components/mating_card.dart';
 import 'package:odm/screens/main/widgets/main_header.dart';
+import 'package:odm/utils/print.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  MainScreen({Key? key}) : super(key: key);
+  final MainController _mainController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +32,39 @@ class MainScreen extends StatelessWidget {
           horizontal: Constants.sapceGap * 5,
           vertical: Constants.sapceGap * 3,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const MainHeader(),
-            const SizedBox(
-              height: Constants.sapceGap * 7,
-            ),
-            Text(
-              '내 주변 스타일 모임 ✨',
-              style: Theme.of(context).textTheme.headline3,
-            ),
-            const SizedBox(
-              height: Constants.sapceGap * 4,
-            ),
-          ],
+        child: Obx(
+          () => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const MainHeader(),
+              const SizedBox(
+                height: Constants.sapceGap * 7,
+              ),
+              Text(
+                '내 주변 스타일 모임 ✨',
+                style: Theme.of(context).textTheme.headline3,
+              ),
+              const SizedBox(
+                height: Constants.sapceGap * 4,
+              ),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: _mainController.mateList.length,
+                  itemBuilder: (context, index) {
+                    return MatingCard(
+                      key: UniqueKey(),
+                      type: MatingCardType.none,
+                      height: 160,
+                      mateModel: _mainController.mateList.elementAt(index),
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: Constants.sapceGap * 4,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
