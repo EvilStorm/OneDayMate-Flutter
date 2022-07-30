@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/model_mate.dart';
-import 'package:odm/screens/components/mate_card_state_label.dart';
+import 'package:odm/screens/components/card/mate_card_state_label.dart';
 
-class MateCardHeaderMine extends StatelessWidget {
+class MateCardHeaderJoin extends StatelessWidget {
   final MateModel mateInfo;
 
-  Function? menuClick;
+  Function? deleteClick;
   Function? replyClick;
 
-  MateCardHeaderMine({
+  MateCardHeaderJoin({
     Key? key,
     required this.mateInfo,
-    this.menuClick,
+    this.deleteClick,
     this.replyClick,
   }) : super(key: key);
 
@@ -44,10 +43,10 @@ class MateCardHeaderMine extends StatelessWidget {
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),
           onPressed: () {
-            menuClick?.call();
+            deleteClick?.call();
           },
           icon: const Icon(
-            Icons.more_vert,
+            Icons.close,
             color: ColorStore.color43,
           ),
         ),

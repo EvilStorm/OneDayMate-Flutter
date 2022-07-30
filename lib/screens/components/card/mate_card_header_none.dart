@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:odm/controllers/model_mate.dart';
-import 'package:odm/screens/components/mate_card_state_label.dart';
+import 'package:odm/screens/components/card/mate_card_state_label.dart';
 
 class MateCardHeaderNone extends StatelessWidget {
   final MateModel mateInfo;

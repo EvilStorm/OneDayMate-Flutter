@@ -1,16 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/model_mate.dart';
 import 'package:odm/screens/components/about_date.dart';
-import 'package:odm/screens/components/mate_card_header_join.dart';
-import 'package:odm/screens/components/mate_card_header_mine.dart';
-import 'package:odm/screens/components/mate_card_header_none.dart';
-import 'package:odm/screens/components/mate_join_member_in_card.dart';
+import 'package:odm/screens/components/card/mate_card_header_join.dart';
+import 'package:odm/screens/components/card/mate_card_header_mine.dart';
+import 'package:odm/screens/components/card/mate_card_header_none.dart';
+import 'package:odm/screens/components/card/mate_join_member_in_card.dart';
 
 enum MatingCardType { mine, join, like, none }
 
