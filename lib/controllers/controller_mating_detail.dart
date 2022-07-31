@@ -31,7 +31,7 @@ class MatingDetailController extends GetxController
     mateModel.value = _model;
   }
 
-  void joinMate() async {
+  void appliedMate() async {
     showLoadingDialog();
     try {
       var response =
@@ -46,7 +46,7 @@ class MatingDetailController extends GetxController
     }
   }
 
-  void joinCancelMate() async {
+  void applyCancelMate() async {
     showLoadingDialog();
     try {
       var response = await HttpClient.instance
@@ -98,12 +98,12 @@ class MatingDetailController extends GetxController
     mateModel.refresh();
   }
 
-  void memberJoin(String userId) async {
+  void acceptedMember(String userId) async {
     try {
       var response = await HttpClient.instance.post(
         '/mate/accept/${mateModel.value.sId}',
         body: {
-          'joinMemberId': userId,
+          'acceptedId': userId,
         },
       );
       if (response['code'] == 200) {

@@ -72,7 +72,7 @@ class ApplyMembers extends StatelessWidget {
                             ? const Text('참가중')
                             : MateButton(
                                 onClick: () {
-                                  _controller.memberJoin(e.sId!);
+                                  _controller.acceptedMember(e.sId!);
                                 },
                                 text: '승인',
                                 width: 70,

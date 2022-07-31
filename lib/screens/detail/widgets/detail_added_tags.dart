@@ -26,19 +26,26 @@ class MateAddedTags extends StatelessWidget {
         const SizedBox(
           height: Constants.sapceGap * 2,
         ),
-        Wrap(
-          children: [
-            ...?_detailController.mateModel.value.tags?.map(
-              (e) => Padding(
-                padding: const EdgeInsets.only(right: Constants.sapceGap * 3),
-                child: TagWidget(
-                  borderColor: ColorStore.colorD6,
-                  backgroundColor: ColorStore.colorF6,
-                  tag: '#${e.tag}',
+        Obx(
+          () => Wrap(
+            runSpacing: Constants.sapceGap * 2,
+            children: [
+              ...?_detailController.mateModel.value.tags?.map(
+                (e) => GestureDetector(
+                  onTap: () {},
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(right: Constants.sapceGap * 3),
+                    child: TagWidget(
+                      borderColor: ColorStore.colorD6,
+                      backgroundColor: ColorStore.colorF6,
+                      tag: '#${e.tag}',
+                    ),
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ],
     );
