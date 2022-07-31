@@ -15,6 +15,8 @@ class MateModel {
   List<CategoryModel>? category;
   List<TagModel>? tags;
   bool? isShow;
+  bool? isLike;
+  bool? isPolice;
   DateTime? mateDate;
   DateTime? createdAt;
   MateMemberModel? member;
@@ -30,6 +32,8 @@ class MateModel {
       this.category,
       this.tags,
       this.isShow,
+      this.isLike,
+      this.isPolice,
       this.mateDate,
       this.createdAt,
       this.member});
@@ -55,6 +59,8 @@ class MateModel {
       });
     }
     isShow = json['isShow'];
+    isLike = json['isLike'];
+    isPolice = json['isPolice'];
     mateDate = DateTime.parse(json['mateDate']);
     createdAt = DateTime.parse(json['createdAt']);
     member = json['member'] != null
@@ -78,6 +84,8 @@ class MateModel {
       data['tags'] = tags!.map((v) => v.toJson()).toList();
     }
     data['isShow'] = isShow;
+    data['isLike'] = isLike;
+    data['isPolice'] = isPolice;
     data['mateDate'] = mateDate;
     data['createdAt'] = createdAt;
     if (member != null) {

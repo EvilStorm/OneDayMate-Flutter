@@ -16,6 +16,7 @@ class MatingCard extends StatelessWidget {
   final MateModel mateModel;
   final MatingCardType type;
   final double? height;
+
   const MatingCard(
       {Key? key, required this.type, this.height, required this.mateModel})
       : super(key: key);
@@ -32,6 +33,7 @@ class MatingCard extends StatelessWidget {
         );
       case MatingCardType.none:
         return MateCardHeaderNone(
+          key: UniqueKey(),
           mateInfo: mateModel,
         );
       default:
