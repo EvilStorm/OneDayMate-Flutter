@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
 import 'package:odm/constants/key_store.dart';
+import 'package:odm/controllers/controller_mating_actions.dart';
 import 'package:odm/controllers/controller_mating_detail.dart';
+import 'package:odm/screens/components/button.dart';
+import 'package:odm/screens/components/detail_like_button.dart';
 import 'package:odm/screens/components/mate_button.dart';
 import 'package:odm/screens/detail/widgets/detail_added_tags.dart';
 import 'package:odm/screens/detail/widgets/detail_apply_member.dart';
@@ -22,16 +26,19 @@ class MateDetailScreen extends StatefulWidget {
 
 class _MateDetailScreenState extends State<MateDetailScreen> {
   final MatingDetailController _detailController = Get.find();
+  final MatingActionController _controller = Get.find();
 
   final _storage = GetStorage();
   late String myId;
   int currentImageIndex = 1;
+  bool isLike = false;
 
   @override
   void initState() {
     _detailController.setMate(Get.arguments);
     _detailController.getMateDetail(Get.arguments.sId!);
     myId = _storage.read(KeyStore.userID_I);
+    isLike = _detailController.mateModel.value.isLike ?? false;
 
     super.initState();
   }
@@ -50,15 +57,60 @@ class _MateDetailScreenState extends State<MateDetailScreen> {
       );
     }
     if (applyedMate()) {
-      return MateButton(
-        onClick: () => _detailController.applyCancelMate(),
-        text: '참가 취소',
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          DetailLikeButton(
+            isLike: isLike,
+            iconSize: 30,
+            click: () async {
+              final state =
+                  await _controller.updateLikeState(_detailController.mateId);
+              setState(() {
+                isLike = state;
+              });
+            },
+          ),
+          const SizedBox(
+            width: Constants.sapceGap * 4,
+          ),
+          Expanded(
+            child: Button(
+              isAccent: true,
+              action: () => _detailController.applyCancelMate(),
+              text: '참가 취소',
+            ),
+          ),
+        ],
       );
     }
 
-    return MateButton(
-      onClick: () => _detailController.appliedMate(),
-      text: '참여하기',
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        DetailLikeButton(
+          isLike: isLike,
+          iconSize: 30,
+          click: () async {
+            final state =
+                await _controller.updateLikeState(_detailController.mateId);
+
+            setState(() {
+              isLike = state;
+            });
+          },
+        ),
+        const SizedBox(
+          width: Constants.sapceGap * 4,
+        ),
+        Expanded(
+          child: Button(
+            isAccent: true,
+            action: () => _detailController.appliedMate(),
+            text: '참여하기',
+          ),
+        ),
+      ],
     );
   }
 
@@ -94,6 +146,7 @@ class _MateDetailScreenState extends State<MateDetailScreen> {
       ),
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
               child: SingleChildScrollView(
@@ -115,7 +168,7 @@ class _MateDetailScreenState extends State<MateDetailScreen> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           const SizedBox(
-                            height: Constants.sapceGap * 2,
+                            height: Constants.sapceGap * 5,
                           ),
                           SectionTitle(
                             owner: _detailController.mateModel.value.owner!,
