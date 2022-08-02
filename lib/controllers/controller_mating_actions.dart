@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:odm/controllers/basic_controller_fn.dart';
-import 'package:odm/controllers/contoller_user_info.dart';
 import 'package:odm/network/http_client.dart';
 import 'package:odm/utils/print.dart';
 

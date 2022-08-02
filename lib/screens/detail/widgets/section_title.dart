@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:odm/constants/constants.dart';
-import 'package:odm/controllers/model_brief_user.dart';
+import 'package:odm/models/model_brief_user.dart';
 import 'package:odm/screens/components/user_brief_info.dart';
 import 'package:odm/screens/detail/widgets/section_header_20.dart';
 

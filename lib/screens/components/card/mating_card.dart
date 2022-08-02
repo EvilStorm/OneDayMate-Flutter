@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
-import 'package:odm/controllers/model_mate.dart';
+import 'package:odm/models/model_mate.dart';
 import 'package:odm/screens/components/about_date.dart';
 import 'package:odm/screens/components/card/mate_card_header_join.dart';
 import 'package:odm/screens/components/card/mate_card_header_mine.dart';

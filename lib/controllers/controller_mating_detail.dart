@@ -1,5 +1,5 @@
 import 'package:odm/controllers/basic_controller_fn.dart';
-import 'package:odm/controllers/model_mate.dart';
+import 'package:odm/models/model_mate.dart';
 import 'package:odm/network/http_client.dart';
 import 'package:odm/utils/print.dart';
 import 'package:get/get.dart';
@@ -27,8 +27,8 @@ class MatingDetailController extends GetxController
     }
   }
 
-  void setMate(MateModel _model) {
-    mateModel.value = _model;
+  void setMate(MateModel model) {
+    mateModel.value = model;
   }
 
   void appliedMate() async {

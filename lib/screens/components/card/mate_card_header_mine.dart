@@ -2,23 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
-import 'package:odm/controllers/model_mate.dart';
+import 'package:odm/models/model_mate.dart';
 import 'package:odm/screens/components/card/mate_card_state_label.dart';
 
 class MateCardHeaderMine extends StatelessWidget {
   final MateModel mateInfo;
 
-  Function? menuClick;
-  Function? replyClick;
+  final Function? menuClick;
+  final Function? replyClick;
 
-  MateCardHeaderMine({
+  const MateCardHeaderMine({
     Key? key,
     required this.mateInfo,
     this.menuClick,
     this.replyClick,
   }) : super(key: key);
-
-  bool isPassedMate = false;
 
   bool passed() {
     if (mateInfo.mateDate!.isAfter(DateTime.now())) {
@@ -56,8 +54,6 @@ class MateCardHeaderMine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    isPassedMate = passed();
-
     return Row(
       children: [
         MateCardStateLabel(isPassed: passed()),

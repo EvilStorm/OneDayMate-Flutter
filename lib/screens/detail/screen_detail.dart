@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
@@ -9,7 +8,6 @@ import 'package:odm/controllers/controller_mating_actions.dart';
 import 'package:odm/controllers/controller_mating_detail.dart';
 import 'package:odm/screens/components/button.dart';
 import 'package:odm/screens/components/detail_like_button.dart';
-import 'package:odm/screens/components/mate_button.dart';
 import 'package:odm/screens/detail/widgets/detail_added_tags.dart';
 import 'package:odm/screens/detail/widgets/detail_apply_member.dart';
 import 'package:odm/screens/detail/widgets/detail_join_member.dart';

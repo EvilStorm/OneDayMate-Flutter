@@ -1,6 +1,5 @@
-import 'package:flutter/foundation.dart';
-import 'package:odm/controllers/model_brief_user.dart';
-import 'package:odm/controllers/model_mate_member.dart';
+import 'package:odm/models/model_brief_user.dart';
+import 'package:odm/models/model_mate_member.dart';
 import 'package:odm/models/model_category.dart';
 import 'package:odm/models/model_tag.dart';
 

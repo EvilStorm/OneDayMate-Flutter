@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:get/get.dart';
@@ -25,7 +24,7 @@ class DatePage extends StatelessWidget {
           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
         builder: (BuildContext context) {
-          DateTime? _selectedDate;
+          DateTime? selectedDate;
           return SafeArea(
             child: SizedBox(
               height: 490,
@@ -37,14 +36,14 @@ class DatePage extends StatelessWidget {
                   children: [
                     MateCalendar(
                       selectedDate: (date) {
-                        _selectedDate = date;
+                        selectedDate = date;
                       },
                     ),
                     const Spacer(),
                     Button(
                       action: () {
-                        if (_selectedDate != null) {
-                          _controller.setMateDate(_selectedDate!);
+                        if (selectedDate != null) {
+                          _controller.setMateDate(selectedDate!);
                         }
                         Get.back();
                       },
@@ -66,7 +65,7 @@ class DatePage extends StatelessWidget {
           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
         builder: (BuildContext context) {
-          DateTime? _selectedTime;
+          DateTime? selectedTime;
           return SafeArea(
             child: SizedBox(
               height: 280,
@@ -90,14 +89,14 @@ class DatePage extends StatelessWidget {
                       time: _controller.selectedTime.value,
                       spacing: 30,
                       onTimeChange: (time) {
-                        _selectedTime = time;
+                        selectedTime = time;
                       },
                     ),
                     const Spacer(),
                     Button(
                       action: () {
-                        if (_selectedTime != null) {
-                          _controller.setMateTime(_selectedTime!);
+                        if (selectedTime != null) {
+                          _controller.setMateTime(selectedTime!);
                         }
                         Get.back();
                       },
@@ -135,7 +134,7 @@ class DatePage extends StatelessWidget {
                     const SizedBox(
                       height: Constants.sapceGap * 3,
                     ),
-                    SectionHeaderText(title: '장소찾기'),
+                    const SectionHeaderText(title: '장소찾기'),
                     const SizedBox(
                       height: Constants.sapceGap * 3,
                     ),
@@ -225,7 +224,7 @@ class DatePage extends StatelessWidget {
                         _controller.ageDontCare.value = checked!;
                       }),
                 ),
-                Text('나이 상관없음'),
+                const Text('나이 상관없음'),
               ],
             ),
           ),
@@ -288,7 +287,7 @@ class DatePage extends StatelessWidget {
                     const SizedBox(width: Constants.sapceGap * 4),
                     _controller.dateSelected.value
                         ? Text(
-                            AboutDate.dateForMate_date
+                            AboutDate.dateForMateDate
                                 .format(_controller.selectedDate.value),
                           )
                         : Text(
@@ -326,7 +325,7 @@ class DatePage extends StatelessWidget {
                     const SizedBox(width: Constants.sapceGap * 4),
                     _controller.timeSelected.value
                         ? Text(
-                            AboutDate.dateForMate_time
+                            AboutDate.dateForMateTime
                                 .format(_controller.selectedTime.value),
                           )
                         : Text(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
 

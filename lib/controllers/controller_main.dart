@@ -1,7 +1,7 @@
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:odm/controllers/basic_controller_fn.dart';
-import 'package:odm/controllers/model_mate.dart';
+import 'package:odm/models/model_mate.dart';
 import 'package:odm/network/http_client.dart';
 import 'package:odm/utils/print.dart';
 

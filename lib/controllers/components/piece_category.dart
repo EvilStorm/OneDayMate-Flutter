@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:odm/models/model_category.dart';
 import 'package:odm/network/http_client.dart';
-import 'package:odm/utils/print.dart';
 
 class CategoryPiece {
   RxList<CategoryModel> categoryList = <CategoryModel>[].obs;

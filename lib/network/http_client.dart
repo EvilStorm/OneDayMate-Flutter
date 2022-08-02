@@ -20,7 +20,7 @@ class HttpClient {
   }
 
   String getEndPointPrefix(endPoint) {
-    return '/api' + endPoint;
+    return '/api$endPoint';
   }
 
   static final HttpClient instance = HttpClient.init();

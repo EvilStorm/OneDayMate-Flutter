@@ -1,4 +1,4 @@
-import 'package:odm/controllers/model_brief_user.dart';
+import 'package:odm/models/model_brief_user.dart';
 
 class MateMemberModel {
   String? sId;

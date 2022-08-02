@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:odm/controllers/controller_mating_actions.dart';
-import 'package:odm/controllers/model_mate.dart';
+import 'package:odm/models/model_mate.dart';
 import 'package:odm/screens/components/card/mate_card_state_label.dart';
 
 class MateCardHeaderNone extends StatefulWidget {
   final MateModel mateInfo;
 
-  MateCardHeaderNone({
+  const MateCardHeaderNone({
     Key? key,
     required this.mateInfo,
   }) : super(key: key);

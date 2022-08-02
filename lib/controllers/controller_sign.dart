@@ -84,23 +84,23 @@ class SignController extends GetxController {
     }
   }
 
-  bool _passedEmailVerifyCheck(user) {
-    //KAKAO 로그인은 providerData와 ProviderId가 존재하지 않는다.
-    //uid 로 구분
-    if (user.uid.startsWith('kakao')) {
-      storage.write(KeyStore.signInType_S, 'kakao');
+  // bool _passedEmailVerifyCheck(user) {
+  //   //KAKAO 로그인은 providerData와 ProviderId가 존재하지 않는다.
+  //   //uid 로 구분
+  //   if (user.uid.startsWith('kakao')) {
+  //     storage.write(KeyStore.signInType_S, 'kakao');
 
-      return true;
-    }
+  //     return true;
+  //   }
 
-    storage.write(KeyStore.signInType_S, user.providerData[0].providerId);
-    //ThridParty auth를 이용하면 이메일 인증은 false로 들어온다.
-    //password를 사용하고, email인증이 되지 않으면 이메일 인증 화면으로 보낸다.
-    if (user.providerData[0].providerId == 'password' && !user.emailVerified) {
-      return false;
-    }
-    return true;
-  }
+  //   storage.write(KeyStore.signInType_S, user.providerData[0].providerId);
+  //   //ThridParty auth를 이용하면 이메일 인증은 false로 들어온다.
+  //   //password를 사용하고, email인증이 되지 않으면 이메일 인증 화면으로 보낸다.
+  //   if (user.providerData[0].providerId == 'password' && !user.emailVerified) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   void sendEmailVdalition() {
     FirebaseAuth.instance.currentUser?.sendEmailVerification();
@@ -156,8 +156,8 @@ class SignController extends GetxController {
         await FacebookAuth.instance.logOut();
         break;
     }
-    UserInfoController _controller = Get.find();
-    _controller.setUserInfo(UserModel(), true);
+    UserInfoController controller = Get.find();
+    controller.setUserInfo(UserModel(), true);
   }
 
   int signInType() {

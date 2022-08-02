@@ -11,7 +11,6 @@ class JoinMembers extends StatelessWidget {
   final MatingDetailController _controller = Get.find();
   final bool isMine;
   final storage = GetStorage();
-  late String myId;
   JoinMembers({
     Key? key,
     required this.isMine,
@@ -19,7 +18,7 @@ class JoinMembers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    myId = storage.read(KeyStore.userID_I);
+    var myId = storage.read(KeyStore.userID_I);
     return Obx(
       () => Column(
         crossAxisAlignment: CrossAxisAlignment.start,

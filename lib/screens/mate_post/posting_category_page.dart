@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/controller_posting.dart';
@@ -11,7 +9,7 @@ import 'package:odm/screens/mate_post/widgets/section_header.dart';
 
 class PostingTagCategoryPage extends StatelessWidget {
   PostingTagCategoryPage({Key? key}) : super(key: key);
-  PostingController _postingController = Get.find();
+  final PostingController _postingController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Obx(

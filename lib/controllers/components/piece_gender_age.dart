@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-enum Gender { MALE, FEMALE }
+enum Gender { male, female }
 
 class GenderAgePiece {
-  Rx<Gender> gender = Rx<Gender>(Gender.MALE);
+  Rx<Gender> gender = Rx<Gender>(Gender.male);
 
   var age = 20.0.obs;
 }

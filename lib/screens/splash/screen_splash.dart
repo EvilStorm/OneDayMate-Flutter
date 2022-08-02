@@ -5,7 +5,7 @@ import 'package:odm/controllers/controller_splash.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class SplashScreen extends GetView<SplashController> {
-  SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

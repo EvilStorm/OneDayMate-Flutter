@@ -6,8 +6,6 @@ import 'package:odm/controllers/components/piece_brief_addr.dart';
 
 class BirefAddressSearchController extends GetxController
     with BasicControllorFunctions, BriefSearchAddressPiece {
-  var selectedLocation = "".obs;
-
   Timer? _searchTmer;
 
   @override

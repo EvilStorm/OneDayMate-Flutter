@@ -15,7 +15,7 @@ class JoinProcessScreen extends StatelessWidget {
 
   final JoinController _controller = Get.find();
 
-  var pageList = [
+  final pageList = [
     PageTerm(),
     PageNickName(),
     PageLocationSelect(),

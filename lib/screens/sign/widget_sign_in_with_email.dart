@@ -11,7 +11,7 @@ class SignInWithEmail extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SignInWithEmailState createState() => _SignInWithEmailState();
+  State<SignInWithEmail> createState() => _SignInWithEmailState();
 }
 
 class _SignInWithEmailState extends State<SignInWithEmail> {

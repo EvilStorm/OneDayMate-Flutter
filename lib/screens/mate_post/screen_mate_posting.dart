@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/controller_posting.dart';
-import 'package:odm/screens/components/button.dart';
 import 'package:odm/screens/mate_post/posting_date_page.dart';
 import 'package:odm/screens/mate_post/posting_category_page.dart';
 import 'package:odm/screens/mate_post/posting_tag_page.dart';
@@ -13,7 +12,7 @@ class MatePostingScreen extends StatelessWidget {
   MatePostingScreen({Key? key}) : super(key: key);
   final PostingController _controller = Get.find();
 
-  List<Widget> pageList = [
+  final List<Widget> pageList = [
     TitlePage(),
     PostingTagCategoryPage(),
     TagPage(),
@@ -36,7 +35,7 @@ class MatePostingScreen extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: Container(
+          child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Padding(
               padding: const EdgeInsets.symmetric(

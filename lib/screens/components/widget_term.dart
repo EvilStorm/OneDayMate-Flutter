@@ -25,6 +25,7 @@ class TermWidget extends StatelessWidget {
         children: <Widget>[
           const SizedBox(height: 18),
           Flexible(
+              flex: 1,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -47,29 +48,29 @@ class TermWidget extends StatelessWidget {
                             ),
                           )),
                     )
-                  ]),
-              flex: 1),
+                  ])),
           const SizedBox(height: 36),
           Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('정보동의', style: Theme.of(context).textTheme.headline6),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).dialogBackgroundColor),
-                      margin: const EdgeInsets.only(top: 16.0),
-                      child: SingleChildScrollView(
-                        child: Html(
-                          data: data?.userTerm,
-                        ),
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('정보동의', style: Theme.of(context).textTheme.headline6),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).dialogBackgroundColor),
+                    margin: const EdgeInsets.only(top: 16.0),
+                    child: SingleChildScrollView(
+                      child: Html(
+                        data: data?.userTerm,
                       ),
                     ),
-                  )
-                ],
-              ),
-              flex: 1),
+                  ),
+                )
+              ],
+            ),
+          ),
           ButtonBar(
             children: <Widget>[
               Visibility(

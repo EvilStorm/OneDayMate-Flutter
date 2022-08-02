@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/contoller_user_info.dart';
-import 'package:odm/controllers/controller_my_info.dart';
 import 'package:odm/screens/components/member_avatar.dart';
 import 'package:odm/screens/mypage/widgets/my_page_menu.dart';
 
 class MyPageScreen extends StatelessWidget {
   MyPageScreen({Key? key}) : super(key: key);
 
-  UserInfoController _controller = Get.find();
-  MyInfoController _myInfocontroller = Get.find();
+  final UserInfoController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

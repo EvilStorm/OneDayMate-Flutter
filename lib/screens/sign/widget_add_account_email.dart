@@ -9,7 +9,7 @@ class AddAccountWithEmail extends StatefulWidget {
   const AddAccountWithEmail({Key? key, this.height = 350}) : super(key: key);
 
   @override
-  _AddAccountWithEmailState createState() => _AddAccountWithEmailState();
+  State<AddAccountWithEmail> createState() => _AddAccountWithEmailState();
 }
 
 class _AddAccountWithEmailState extends State<AddAccountWithEmail> {

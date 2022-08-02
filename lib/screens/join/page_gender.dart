@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
 import 'package:odm/controllers/components/piece_gender_age.dart';
 import 'package:odm/controllers/controller_join.dart';
 import 'package:odm/screens/components/button.dart';
-import 'package:odm/screens/components/slider_shape.dart';
 import 'package:odm/screens/join/widgets/header.dart';
 
 class PageGender extends StatelessWidget {
@@ -34,7 +31,7 @@ class PageGender extends StatelessWidget {
           Row(
             children: [
               Radio(
-                  value: Gender.MALE,
+                  value: Gender.male,
                   visualDensity: VisualDensity.compact,
                   fillColor: MaterialStateProperty.resolveWith(
                       ColorStore.materiStateType1),
@@ -44,7 +41,7 @@ class PageGender extends StatelessWidget {
                   }),
               GestureDetector(
                 onTap: () {
-                  _joinController.gender.value = Gender.MALE;
+                  _joinController.gender.value = Gender.male;
                 },
                 child: Text(
                   '남자',
@@ -55,7 +52,7 @@ class PageGender extends StatelessWidget {
                 width: Constants.sapceGap * 5,
               ),
               Radio(
-                  value: Gender.FEMALE,
+                  value: Gender.female,
                   fillColor: MaterialStateProperty.resolveWith(
                       ColorStore.materiStateType1),
                   groupValue: _joinController.gender.value,
@@ -64,7 +61,7 @@ class PageGender extends StatelessWidget {
                   }),
               GestureDetector(
                 onTap: () {
-                  _joinController.gender.value = Gender.FEMALE;
+                  _joinController.gender.value = Gender.female;
                 },
                 child: Text(
                   '여자',

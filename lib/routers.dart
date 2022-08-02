@@ -12,7 +12,7 @@ import 'package:odm/screens/splash/screen_splash.dart';
 
 class Routers {
   final allPageRouter = [
-    GetPage(name: '/', page: () => SplashScreen()),
+    GetPage(name: '/', page: () => const SplashScreen()),
     GetPage(
       name: '/signIn',
       page: () => const SignInScreen(),
@@ -32,7 +32,7 @@ class Routers {
         binding: PostingBinder()),
     GetPage(
         name: '/mating/detail',
-        page: () => MateDetailScreen(),
+        page: () => const MateDetailScreen(),
         binding: MateDetailBinder()),
   ];
 }

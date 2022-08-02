@@ -44,7 +44,7 @@ Future<void> main() async {
   }
 
   FirebaseMessaging.instance.getToken().then((token) {
-    Print.i('FCM TOken: ${token}');
+    Print.i('FCM TOken: $token');
   });
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);

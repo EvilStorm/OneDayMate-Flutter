@@ -1,23 +1,14 @@
 import 'dart:async';
-import 'dart:io';
-
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
-import 'package:odm/constants/key_store.dart';
 import 'package:odm/controllers/basic_controller_fn.dart';
 import 'package:odm/controllers/components/piece_posting_title.dart';
 import 'package:odm/controllers/components/piece_poting_image.dart';
 import 'package:odm/controllers/components/piece_category.dart';
-import 'package:odm/controllers/controller_main.dart';
-import 'package:odm/controllers/model_mate.dart';
+import 'package:odm/models/model_mate.dart';
 import 'package:odm/models/model_brief_addr.dart';
 import 'package:odm/models/model_tag.dart';
 import 'package:odm/network/http_client.dart';
-import 'package:odm/screens/mate_post/widgets/added_picture.dart';
-import 'package:odm/screens/sign/widget_add_account_email.dart';
 import 'package:odm/utils/print.dart';
 
 class PostingController extends GetxController
@@ -57,9 +48,7 @@ class PostingController extends GetxController
   var maxMemberCount = 108;
 
   var ageDontCare = true.obs;
-  var ageRange = RangeValues(20, 35).obs;
-
-  var titlePageValidation = false.obs;
+  var ageRange = const RangeValues(20, 35).obs;
 
   var canPosting = false.obs;
 
@@ -269,7 +258,7 @@ class PostingController extends GetxController
       );
 
       if (response['code'] == 200) {
-        var mate = MateModel.fromJson(response['data']);
+        MateModel.fromJson(response['data']);
         // MainController _controller = Get.find();
         // _controller.addMainMate(mate);
 

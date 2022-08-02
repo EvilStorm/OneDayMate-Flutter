@@ -28,7 +28,7 @@ class MatingTimeSection extends StatelessWidget {
           height: Constants.sapceGap * 4,
         ),
         basicInfo(context, Icons.schedule_outlined, '모임날짜',
-            AboutDate.dateForMate_Detail.format(date)),
+            AboutDate.dateForMateDetail.format(date)),
       ],
     );
   }
@@ -46,7 +46,7 @@ class MatingTimeSection extends StatelessWidget {
             text: title,
             style: Theme.of(context).textTheme.headline5,
             children: [
-              TextSpan(text: "      "),
+              const TextSpan(text: "      "),
               TextSpan(
                   text: info, style: Theme.of(context).textTheme.bodyText1),
             ],

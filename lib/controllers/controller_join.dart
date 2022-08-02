@@ -89,7 +89,7 @@ class JoinController extends GetxController
           'nickName': nickNameController.text.trim(),
           'location': selectedLocation.value.trim(),
           'age': age.value.round(),
-          'gender': gender.value == Gender.MALE,
+          'gender': gender.value == Gender.male,
           'category': temp,
         },
       );

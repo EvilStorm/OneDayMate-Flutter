@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:odm/constants/constants.dart';
 import 'package:odm/utils/device_util.dart';
 

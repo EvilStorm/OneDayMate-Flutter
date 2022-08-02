@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
-import 'package:odm/controllers/model_brief_user.dart';
+import 'package:odm/models/model_brief_user.dart';
 import 'package:odm/screens/components/member_avatar.dart';
 
 class CardJoinMember extends StatelessWidget {
@@ -14,7 +14,7 @@ class CardJoinMember extends StatelessWidget {
   }) : super(key: key);
 
   Text countView() {
-    return Text("/${limitCount}명 참여중");
+    return Text("/$limitCount명 참여중");
   }
 
   List<Widget> userAvatars() {
@@ -39,7 +39,7 @@ class CardJoinMember extends StatelessWidget {
     if (limitCount <= (userList?.length ?? 0)) {
       return '마감';
     } else {
-      return "${userList?.length}/${limitCount}명";
+      return "${userList?.length}/$limitCount명";
     }
   }
 
