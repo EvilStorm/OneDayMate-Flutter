@@ -4,10 +4,10 @@ import 'package:odm/models/model_brief_user.dart';
 import 'package:odm/screens/components/member_avatar.dart';
 
 class BriefUserInfo extends StatelessWidget {
-  final BriefUserModel info;
+  final BriefUserModel? info;
   const BriefUserInfo({
     Key? key,
-    required this.info,
+    this.info,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class BriefUserInfo extends StatelessWidget {
     return Row(
       children: [
         MemberAvatar(
-          imageUrl: info.pictureMe,
+          imageUrl: info?.pictureMe,
           size: 42,
         ),
         const SizedBox(
@@ -23,7 +23,7 @@ class BriefUserInfo extends StatelessWidget {
         ),
         Text.rich(
           TextSpan(
-              text: info.nickName ?? "unkown",
+              text: info?.nickName ?? "unkown",
               style: Theme.of(context).textTheme.headline6),
         ),
       ],

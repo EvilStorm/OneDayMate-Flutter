@@ -5,10 +5,10 @@ import 'package:odm/screens/components/user_brief_info.dart';
 import 'package:odm/screens/detail/widgets/section_header_20.dart';
 
 class SectionTitle extends StatelessWidget {
-  final BriefUserModel owner;
+  final BriefUserModel? owner;
   final String? title;
   final String? desc;
-  const SectionTitle({Key? key, required this.owner, this.title, this.desc})
+  const SectionTitle({Key? key, this.owner, this.title, this.desc})
       : super(key: key);
 
   @override

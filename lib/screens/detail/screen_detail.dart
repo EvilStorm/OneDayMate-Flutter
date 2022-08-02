@@ -143,97 +143,98 @@ class _MateDetailScreenState extends State<MateDetailScreen> {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 200,
-                      child: DetailHeader(
-                        images: _detailController.mateModel.value.images,
-                        totalCount:
-                            _detailController.mateModel.value.images?.length ??
-                                0,
+        child: Obx(
+          () => Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 200,
+                        child: DetailHeader(
+                          images: _detailController.mateModel.value.images,
+                          totalCount: _detailController
+                                  .mateModel.value.images?.length ??
+                              0,
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: Constants.sapceGap * 5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const SizedBox(
-                            height: Constants.sapceGap * 5,
-                          ),
-                          SectionTitle(
-                            owner: _detailController.mateModel.value.owner!,
-                            title: _detailController.mateModel.value.title,
-                            desc: _detailController.mateModel.value.message,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: Constants.sapceGap * 8),
-                            child: Divider(
-                              height: 1,
-                              color: ColorStore.color89,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: Constants.sapceGap * 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const SizedBox(
+                              height: Constants.sapceGap * 5,
                             ),
-                          ),
-                          MatingTimeSection(
-                            maxMember:
-                                _detailController.mateModel.value.memberLimit ??
-                                    1,
-                            location:
-                                _detailController.mateModel.value.locationStr ??
-                                    "",
-                            date: _detailController.mateModel.value.mateDate ??
-                                DateTime.now(),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: Constants.sapceGap * 8),
-                            child: Divider(
-                              height: 1,
-                              color: ColorStore.color89,
+                            SectionTitle(
+                              owner: _detailController.mateModel.value.owner,
+                              title: _detailController.mateModel.value.title,
+                              desc: _detailController.mateModel.value.message,
                             ),
-                          ),
-                          JoinMembers(
-                            isMine: isMine(),
-                          ),
-                          const SizedBox(
-                            height: Constants.sapceGap * 4,
-                          ),
-                          ApplyMembers(
-                            isMine: isMine(),
-                          ),
-                          const SizedBox(
-                            height: Constants.sapceGap * 6,
-                          ),
-                          MateAddedTags(),
-                          const SizedBox(
-                            height: Constants.sapceGap * 6,
-                          ),
-                        ],
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: Constants.sapceGap * 8),
+                              child: Divider(
+                                height: 1,
+                                color: ColorStore.color89,
+                              ),
+                            ),
+                            MatingTimeSection(
+                              maxMember: _detailController
+                                      .mateModel.value.memberLimit ??
+                                  1,
+                              location: _detailController
+                                      .mateModel.value.locationStr ??
+                                  "",
+                              date:
+                                  _detailController.mateModel.value.mateDate ??
+                                      DateTime.now(),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: Constants.sapceGap * 8),
+                              child: Divider(
+                                height: 1,
+                                color: ColorStore.color89,
+                              ),
+                            ),
+                            JoinMembers(
+                              isMine: isMine(),
+                            ),
+                            const SizedBox(
+                              height: Constants.sapceGap * 4,
+                            ),
+                            ApplyMembers(
+                              isMine: isMine(),
+                            ),
+                            const SizedBox(
+                              height: Constants.sapceGap * 6,
+                            ),
+                            MateAddedTags(),
+                            const SizedBox(
+                              height: Constants.sapceGap * 6,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: Constants.sapceGap,
-            ),
-            Obx(
-              () => Padding(
+              const SizedBox(
+                height: Constants.sapceGap,
+              ),
+              Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: Constants.sapceGap * 5,
                     vertical: Constants.sapceGap),
                 child: getBottomBtns(),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
