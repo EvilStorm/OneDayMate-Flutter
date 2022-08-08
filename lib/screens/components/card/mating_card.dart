@@ -3,23 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:odm/constants/color_store.dart';
 import 'package:odm/constants/constants.dart';
+import 'package:odm/controllers/has_mate_list_abs.dart';
 import 'package:odm/models/model_mate.dart';
 import 'package:odm/screens/components/about_date.dart';
 import 'package:odm/screens/components/card/mate_card_header_join.dart';
 import 'package:odm/screens/components/card/mate_card_header_mine.dart';
 import 'package:odm/screens/components/card/mate_card_header_none.dart';
 import 'package:odm/screens/components/card/mate_join_member_in_card.dart';
+import 'package:odm/utils/print.dart';
 
 enum MatingCardType { mine, join, like, none }
 
 class MatingCard extends StatelessWidget {
   final MateModel mateModel;
+  final HasMateList controller;
+
   final MatingCardType type;
   final double? height;
 
-  const MatingCard(
-      {Key? key, required this.type, this.height, required this.mateModel})
-      : super(key: key);
+  const MatingCard({
+    Key? key,
+    required this.type,
+    this.height,
+    required this.mateModel,
+    required this.controller,
+  }) : super(key: key);
 
   Widget header() {
     switch (type) {
@@ -46,7 +54,15 @@ class MatingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed('/mating/detail', arguments: mateModel),
+      onTap: () async {
+        final isUpdate =
+            await Get.toNamed('/mating/detail', arguments: mateModel);
+
+        if (isUpdate) {
+          Print.i(' UPDATE !!!');
+          controller.dataChanged();
+        }
+      },
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(

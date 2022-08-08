@@ -84,17 +84,22 @@ class MyApp extends StatelessWidget {
     Get.put(ThirdPartySignInController());
     Get.put(EmailSignInController());
 
-    return GetMaterialApp(
-      builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: child!);
+    return WillPopScope(
+      onWillPop: () {
+        return Future(() => true);
       },
-      title: 'StyleMate',
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      getPages: Routers().allPageRouter,
-      theme: Themes.lightTheme,
+      child: GetMaterialApp(
+        builder: (BuildContext context, Widget? child) {
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: child!);
+        },
+        title: 'StyleMate',
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        getPages: Routers().allPageRouter,
+        theme: Themes.lightTheme,
+      ),
     );
   }
 }

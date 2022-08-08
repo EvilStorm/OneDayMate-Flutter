@@ -42,10 +42,10 @@ class _MateCardHeaderNoneState extends State<MateCardHeaderNone> {
       children: [
         GestureDetector(
           onTap: () async {
-            var result =
+            MateModel? result =
                 await _controller.updateLikeState(widget.mateInfo.sId!);
             setState(() {
-              isLike = result;
+              isLike = result?.isLike ?? false;
             });
           },
           child: isLike

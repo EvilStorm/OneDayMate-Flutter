@@ -92,4 +92,34 @@ class MateModel {
     }
     return data;
   }
+
+  void setData(Map<String, dynamic> json) {
+    sId = json['_id'];
+    owner = BriefUserModel.fromJson(json['owner'].toJson());
+    images = json['images'].cast<String>();
+    title = json['title'];
+    message = json['message'];
+    memberLimit = json['memberLimit'];
+    locationStr = json['locationStr'];
+    if (json['category'] != null) {
+      category = <CategoryModel>[];
+      json['category'].forEach((v) {
+        category!.add(CategoryModel.fromJson(v));
+      });
+    }
+    if (json['tags'] != null) {
+      tags = <TagModel>[];
+      json['tags'].forEach((v) {
+        tags!.add(TagModel.fromJson(v));
+      });
+    }
+    isShow = json['isShow'];
+    isLike = json['isLike'];
+    isPolice = json['isPolice'];
+    mateDate = DateTime.parse(json['mateDate'].toString());
+    createdAt = DateTime.parse(json['createdAt'].toString());
+    member = json['member'] != null
+        ? MateMemberModel.fromJson(json['member'])
+        : null;
+  }
 }

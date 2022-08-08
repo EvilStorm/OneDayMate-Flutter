@@ -32,7 +32,7 @@ class Routers {
         binding: PostingBinder()),
     GetPage(
         name: '/mating/detail',
-        page: () => const MateDetailScreen(),
+        page: () => MateDetailScreen(),
         binding: MateDetailBinder()),
   ];
 }

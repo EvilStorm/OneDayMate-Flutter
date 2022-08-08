@@ -6,7 +6,10 @@ import 'package:get/get.dart';
 
 class MatingDetailController extends GetxController
     with BasicControllorFunctions {
+  MateModel? basicModel;
   var mateModel = MateModel().obs;
+  bool isUpdate = false;
+
   late String mateId;
   Future<bool> getMateDetail(String mId) async {
     mateId = mId;
@@ -15,7 +18,7 @@ class MatingDetailController extends GetxController
       var response = await HttpClient.instance.get('/mate/detail/$mId');
 
       if (response['code'] == 200) {
-        mateModel.value = MateModel.fromJson(response['data']);
+        mateModel.value = MateModel.fromJson(response['data'][0]);
         return true;
       } else {
         showMessage(response['message']);
@@ -27,8 +30,25 @@ class MatingDetailController extends GetxController
     }
   }
 
-  void setMate(MateModel model) {
-    mateModel.value = model;
+  void setLikeState(bool isLike) {
+    mateModel.value.isLike = isLike;
+    mateModel.refresh();
+  }
+
+  void setMate(MateModel model, {justBasicChange = false}) {
+    if (basicModel == null) {
+      basicModel = model;
+      Print.i(
+          " data obj ID: ${basicModel.hashCode}  isLIke: ${basicModel?.isLike}");
+    } else {
+      basicModel!.setData(model.toJson());
+      Print.i(
+          " data obj ID 22222: ${basicModel.hashCode}  isLIke: ${basicModel?.isLike}");
+    }
+
+    if (!justBasicChange) {
+      mateModel.value = model;
+    }
   }
 
   void appliedMate() async {
