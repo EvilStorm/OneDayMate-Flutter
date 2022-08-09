@@ -12,6 +12,7 @@ import 'package:odm/firebase_options.dart';
 import 'package:odm/routers.dart';
 import 'package:odm/theme.dart';
 import 'package:odm/utils/print.dart';
+import 'package:odm/network/http_client.dart' as client;
 
 import 'controllers/controller_sign.dart';
 
@@ -45,8 +46,13 @@ Future<void> main() async {
 
   FirebaseMessaging.instance.getToken().then((token) {
     Print.i('FCM TOken: $token');
-  });
 
+    client.HttpClient.instance.patch('/user', body: {'pushToken': token});
+  });
+  FirebaseMessaging.instance.onTokenRefresh.listen((token) {
+    Print.i('FCM TOKEN Refresh: $token');
+    client.HttpClient.instance.patch('/user', body: {'pushToken': token});
+  });
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   FirebaseMessaging.onMessage.listen(_firebaseMessagingForgroundHandler);
   await GetStorage.init();

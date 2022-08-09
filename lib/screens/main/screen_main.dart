@@ -51,7 +51,6 @@ class MainScreen extends StatelessWidget {
                 child: ListView.separated(
                   itemCount: _mainController.mateList.length,
                   itemBuilder: (context, index) {
-                    Print.i('   List Update!!! ');
                     return MatingCard(
                       key: UniqueKey(),
                       type: MatingCardType.none,

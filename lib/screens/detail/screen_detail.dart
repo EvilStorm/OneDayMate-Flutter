@@ -25,24 +25,16 @@ class MateDetailScreen extends StatelessWidget {
 
   final _storage = GetStorage();
   late String myId;
-  // int currentImageIndex = 1;
-  // bool isLike = false;
 
-  // @override
-  // void initState() {
-  //   _detailController.setMate(Get.arguments);
-  //   _detailController.getMateDetail(Get.arguments.sId!);
-  //   myId = _storage.read(KeyStore.userID_I);
-  //   isLike = _detailController.mateModel.value.isLike ?? false;
-
-  //   super.initState();
-  // }
-
-  // void imageChanged(index, reason) {
-  // setState(() {
-  //   currentImageIndex = index + 1;
-  // });
-  // }
+  void _doLikeClicked() async {
+    MateModel? state =
+        await _controller.updateLikeState(_detailController.mateId);
+    if (state != null) {
+      _detailController.setMate(state, justBasicChange: true);
+    }
+    _detailController.mateModel.value.isLike = state?.isLike ?? false;
+    _detailController.setLikeState(state?.isLike ?? false);
+  }
 
   Widget getBottomBtns() {
     if (isMine()) {
@@ -52,62 +44,14 @@ class MateDetailScreen extends StatelessWidget {
       );
     }
     if (applyedMate()) {
-      return Obx(
-        () => Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            DetailLikeButton(
-              isLike: _detailController.mateModel.value.isLike ?? false,
-              iconSize: 30,
-              click: () async {
-                MateModel? state =
-                    await _controller.updateLikeState(_detailController.mateId);
-                if (state != null) {
-                  _detailController.setMate(state, justBasicChange: true);
-                }
-                Print.i('state?.isLike: ${state?.isLike}');
-                _detailController.mateModel.value.isLike =
-                    state?.isLike ?? false;
-
-                // setState(() {
-                //   isLike = state?.isLike ?? false;
-                // });
-              },
-            ),
-            const SizedBox(
-              width: Constants.sapceGap * 4,
-            ),
-            Expanded(
-              child: Button(
-                isAccent: true,
-                action: () => _detailController.applyCancelMate(),
-                text: '참가 취소',
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return Obx(
-      () => Row(
+      return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           DetailLikeButton(
             isLike: _detailController.mateModel.value.isLike ?? false,
             iconSize: 30,
-            click: () async {
-              MateModel? state =
-                  await _controller.updateLikeState(_detailController.mateId);
-              if (state != null) {
-                _detailController.setMate(state, justBasicChange: true);
-              }
-              Print.i('ate?.isLike  : ${state?.isLike}');
-
-              _detailController.mateModel.value.isLike = state?.isLike ?? false;
-              // setState(() {
-              //   isLike = state?.isLike ?? false;
-              // });
+            click: () {
+              _doLikeClicked();
             },
           ),
           const SizedBox(
@@ -116,12 +60,34 @@ class MateDetailScreen extends StatelessWidget {
           Expanded(
             child: Button(
               isAccent: true,
-              action: () => _detailController.appliedMate(),
-              text: '참여하기',
+              action: () => _detailController.applyCancelMate(),
+              text: '참가 취소',
             ),
           ),
         ],
-      ),
+      );
+    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        DetailLikeButton(
+          isLike: _detailController.mateModel.value.isLike ?? false,
+          iconSize: 30,
+          click: () async {
+            _doLikeClicked();
+          },
+        ),
+        const SizedBox(
+          width: Constants.sapceGap * 4,
+        ),
+        Expanded(
+          child: Button(
+            isAccent: true,
+            action: () => _detailController.appliedMate(),
+            text: '참여하기',
+          ),
+        ),
+      ],
     );
   }
 
@@ -149,25 +115,24 @@ class MateDetailScreen extends StatelessWidget {
     _detailController.getMateDetail(Get.arguments.sId!);
     myId = _storage.read(KeyStore.userID_I);
 
-    return WillPopScope(
-      onWillPop: () async {
-        Print.i(' WillPopScope');
-        Navigator.pop(context, true);
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
-          backgroundColor: Theme.of(context).backgroundColor,
-          elevation: 0,
-          title: Text(
-            '',
-            style: Theme.of(context).textTheme.headline5,
+    return Obx(
+      () => WillPopScope(
+        onWillPop: () async {
+          Navigator.pop(context, _detailController.isUpdate.value);
+          return true;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            iconTheme: const IconThemeData(color: Colors.black),
+            backgroundColor: Theme.of(context).backgroundColor,
+            elevation: 0,
+            title: Text(
+              '',
+              style: Theme.of(context).textTheme.headline5,
+            ),
           ),
-        ),
-        body: SafeArea(
-          child: Obx(
-            () => Column(
+          body: SafeArea(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(
@@ -252,47 +217,8 @@ class MateDetailScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: Constants.sapceGap * 5,
-                      vertical: Constants.sapceGap),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      DetailLikeButton(
-                        key: UniqueKey(),
-                        isLike:
-                            _detailController.mateModel.value.isLike ?? false,
-                        iconSize: 30,
-                        click: () async {
-                          MateModel? state = await _controller
-                              .updateLikeState(_detailController.mateId);
-                          if (state != null) {
-                            _detailController.setMate(state,
-                                justBasicChange: true);
-                          }
-                          Print.i('ate?.isLike  : ${state?.isLike}');
-
-                          _detailController.mateModel.value.isLike =
-                              state?.isLike ?? false;
-
-                          _detailController
-                              .setLikeState(state?.isLike ?? false);
-                          // setState(() {
-                          //   isLike = state?.isLike ?? false;
-                          // });
-                        },
-                      ),
-                      const SizedBox(
-                        width: Constants.sapceGap * 4,
-                      ),
-                      Expanded(
-                        child: Button(
-                          isAccent: true,
-                          action: () => _detailController.appliedMate(),
-                          text: '참여하기',
-                        ),
-                      ),
-                    ],
-                  ),
+                      horizontal: Constants.sapceGap * 5),
+                  child: getBottomBtns(),
                 ),
               ],
             ),
@@ -302,239 +228,3 @@ class MateDetailScreen extends StatelessWidget {
     );
   }
 }
-// class MateDetailScreen extends StatefulWidget {
-//   const MateDetailScreen({Key? key}) : super(key: key);
-
-//   @override
-//   State<MateDetailScreen> createState() => _MateDetailScreenState();
-// }
-
-// class _MateDetailScreenState extends State<MateDetailScreen> {
-//   final MatingDetailController _detailController = Get.find();
-//   final MatingActionController _controller = Get.find();
-
-//   final _storage = GetStorage();
-//   late String myId;
-//   int currentImageIndex = 1;
-//   bool isLike = false;
-
-//   @override
-//   void initState() {
-//     _detailController.setMate(Get.arguments);
-//     _detailController.getMateDetail(Get.arguments.sId!);
-//     myId = _storage.read(KeyStore.userID_I);
-//     isLike = _detailController.mateModel.value.isLike ?? false;
-
-//     super.initState();
-//   }
-
-//   void imageChanged(index, reason) {
-//     setState(() {
-//       currentImageIndex = index + 1;
-//     });
-//   }
-
-//   Widget getBottomBtns() {
-//     if (isMine()) {
-//       return const SizedBox(
-//         width: 0,
-//         height: 0,
-//       );
-//     }
-//     if (applyedMate()) {
-//       return Row(
-//         mainAxisAlignment: MainAxisAlignment.start,
-//         children: [
-//           DetailLikeButton(
-//             isLike: isLike,
-//             iconSize: 30,
-//             click: () async {
-//               MateModel? state =
-//                   await _controller.updateLikeState(_detailController.mateId);
-//               if (state != null) {
-//                 _detailController.setMate(state, justBasicChange: true);
-//               }
-//               setState(() {
-//                 isLike = state?.isLike ?? false;
-//               });
-//             },
-//           ),
-//           const SizedBox(
-//             width: Constants.sapceGap * 4,
-//           ),
-//           Expanded(
-//             child: Button(
-//               isAccent: true,
-//               action: () => _detailController.applyCancelMate(),
-//               text: '참가 취소',
-//             ),
-//           ),
-//         ],
-//       );
-//     }
-
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: [
-//         DetailLikeButton(
-//           isLike: isLike,
-//           iconSize: 30,
-//           click: () async {
-//             MateModel? state =
-//                 await _controller.updateLikeState(_detailController.mateId);
-
-//             _detailController.mateModel.value.isLike = state?.isLike ?? false;
-//             setState(() {
-//               isLike = state?.isLike ?? false;
-//             });
-//           },
-//         ),
-//         const SizedBox(
-//           width: Constants.sapceGap * 4,
-//         ),
-//         Expanded(
-//           child: Button(
-//             isAccent: true,
-//             action: () => _detailController.appliedMate(),
-//             text: '참여하기',
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-
-//   bool applyedMate() {
-//     if ((_detailController.mateModel.value.member?.appliedMember
-//                 ?.indexWhere((element) => element.sId == myId) ??
-//             -1) >
-//         -1) {
-//       return true;
-//     }
-//     return false;
-//   }
-
-//   bool isMine() {
-//     if (myId == _detailController.mateModel.value.owner?.sId) {
-//       return true;
-//     }
-
-//     return false;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return WillPopScope(
-//       onWillPop: () async {
-//         Print.i(' WillPopScope');
-//         Navigator.pop(context, true);
-//         return true;
-//       },
-//       child: Scaffold(
-//         appBar: AppBar(
-//           iconTheme: const IconThemeData(color: Colors.black),
-//           backgroundColor: Theme.of(context).backgroundColor,
-//           elevation: 0,
-//           title: Text(
-//             '',
-//             style: Theme.of(context).textTheme.headline5,
-//           ),
-//         ),
-//         body: SafeArea(
-//           child: Obx(
-//             () => Column(
-//               crossAxisAlignment: CrossAxisAlignment.stretch,
-//               children: [
-//                 Expanded(
-//                   child: SingleChildScrollView(
-//                     child: Column(
-//                       children: [
-//                         SizedBox(
-//                           height: 200,
-//                           child: DetailHeader(
-//                             images: _detailController.mateModel.value.images,
-//                             totalCount: _detailController
-//                                     .mateModel.value.images?.length ??
-//                                 0,
-//                           ),
-//                         ),
-//                         Padding(
-//                           padding: const EdgeInsets.symmetric(
-//                               horizontal: Constants.sapceGap * 5),
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.stretch,
-//                             children: [
-//                               const SizedBox(
-//                                 height: Constants.sapceGap * 5,
-//                               ),
-//                               SectionTitle(
-//                                 owner: _detailController.mateModel.value.owner,
-//                                 title: _detailController.mateModel.value.title,
-//                                 desc: _detailController.mateModel.value.message,
-//                               ),
-//                               const Padding(
-//                                 padding: EdgeInsets.symmetric(
-//                                     vertical: Constants.sapceGap * 8),
-//                                 child: Divider(
-//                                   height: 1,
-//                                   color: ColorStore.color89,
-//                                 ),
-//                               ),
-//                               MatingTimeSection(
-//                                 maxMember: _detailController
-//                                         .mateModel.value.memberLimit ??
-//                                     1,
-//                                 location: _detailController
-//                                         .mateModel.value.locationStr ??
-//                                     "",
-//                                 date: _detailController
-//                                         .mateModel.value.mateDate ??
-//                                     DateTime.now(),
-//                               ),
-//                               const Padding(
-//                                 padding: EdgeInsets.symmetric(
-//                                     vertical: Constants.sapceGap * 8),
-//                                 child: Divider(
-//                                   height: 1,
-//                                   color: ColorStore.color89,
-//                                 ),
-//                               ),
-//                               JoinMembers(
-//                                 isMine: isMine(),
-//                               ),
-//                               const SizedBox(
-//                                 height: Constants.sapceGap * 4,
-//                               ),
-//                               ApplyMembers(
-//                                 isMine: isMine(),
-//                               ),
-//                               const SizedBox(
-//                                 height: Constants.sapceGap * 6,
-//                               ),
-//                               MateAddedTags(),
-//                               const SizedBox(
-//                                 height: Constants.sapceGap * 6,
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   height: Constants.sapceGap,
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.symmetric(
-//                       horizontal: Constants.sapceGap * 5,
-//                       vertical: Constants.sapceGap),
-//                   child: getBottomBtns(),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

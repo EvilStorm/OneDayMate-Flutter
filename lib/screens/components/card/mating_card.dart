@@ -10,7 +10,6 @@ import 'package:odm/screens/components/card/mate_card_header_join.dart';
 import 'package:odm/screens/components/card/mate_card_header_mine.dart';
 import 'package:odm/screens/components/card/mate_card_header_none.dart';
 import 'package:odm/screens/components/card/mate_join_member_in_card.dart';
-import 'package:odm/utils/print.dart';
 
 enum MatingCardType { mine, join, like, none }
 
@@ -59,7 +58,6 @@ class MatingCard extends StatelessWidget {
             await Get.toNamed('/mating/detail', arguments: mateModel);
 
         if (isUpdate) {
-          Print.i(' UPDATE !!!');
           controller.dataChanged();
         }
       },

@@ -8,7 +8,7 @@ class MatingDetailController extends GetxController
     with BasicControllorFunctions {
   MateModel? basicModel;
   var mateModel = MateModel().obs;
-  bool isUpdate = false;
+  var isUpdate = false.obs;
 
   late String mateId;
   Future<bool> getMateDetail(String mId) async {
@@ -30,7 +30,12 @@ class MatingDetailController extends GetxController
     }
   }
 
+  void setUpdate(bool _) {
+    isUpdate(_);
+  }
+
   void setLikeState(bool isLike) {
+    setUpdate(true);
     mateModel.value.isLike = isLike;
     mateModel.refresh();
   }

@@ -13,7 +13,7 @@ class MatingActionController extends GetxController
 
       if (response['code'] == 200) {
         // MateModel.fromJson(item)
-        MateModel model = MateModel.fromJson(response['data'][0]);
+        MateModel model = MateModel.fromJson(response['data']);
         return model;
       } else {
         showMessage(response['data']['message']);
