@@ -12,20 +12,20 @@ class LikedMateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => _controller.joinedMateList.isEmpty
+      () => _controller.likeMateList.isEmpty
           ? const EmptyView(
               title: '관심이 모임이 😳',
               message: '관심 있는 모임을\n스크랩 해둬요!',
             )
           : ListView.separated(
-              itemCount: _controller.joinedMateList.length,
+              itemCount: _controller.likeMateList.length,
               itemBuilder: (context, index) {
                 return MatingCard(
                   key: UniqueKey(),
                   type: MatingCardType.like,
                   height: 160,
                   controller: _controller,
-                  mateModel: _controller.joinedMateList.elementAt(index),
+                  mateModel: _controller.likeMateList.elementAt(index),
                 );
               },
               separatorBuilder: (context, index) => const SizedBox(

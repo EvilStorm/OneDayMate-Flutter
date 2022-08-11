@@ -14,4 +14,8 @@ class JoinedMatePiece {
           .toList();
     }
   }
+
+  void joinMateRefresh() {
+    joinedMateList.refresh();
+  }
 }

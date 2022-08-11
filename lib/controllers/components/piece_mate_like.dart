@@ -14,4 +14,8 @@ class LikeMatePiece {
           .toList();
     }
   }
+
+  void likeMateRefresh() {
+    likeMateList.refresh();
+  }
 }

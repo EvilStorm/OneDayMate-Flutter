@@ -28,6 +28,8 @@ class MyActionsController extends GetxController
 
   @override
   void dataChanged() {
-    // TODO: implement dataChanged
+    createdMateRefresh();
+    joinMateRefresh();
+    likeMateRefresh();
   }
 }

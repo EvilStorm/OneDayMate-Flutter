@@ -14,4 +14,8 @@ class CreatedMatePiece {
           .toList();
     }
   }
+
+  void createdMateRefresh() {
+    createdMateList.refresh();
+  }
 }
