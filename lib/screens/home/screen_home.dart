@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:odm/controllers/controller_home.dart';
 import 'package:odm/screens/main/screen_main.dart';
-import 'package:odm/screens/myactions/screen_mating_home.dart';
+import 'package:odm/screens/myactions/screen_my_actions_home.dart';
 import 'package:odm/screens/mypage/screen_my_page.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
 
   final List<Widget> _widgetOptions = [
     MainScreen(),
-    const MyActionsScreen(),
+    MyActionsScreen(),
     MyPageScreen(),
   ];
 

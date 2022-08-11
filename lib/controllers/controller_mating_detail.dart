@@ -8,6 +8,8 @@ class MatingDetailController extends GetxController
     with BasicControllorFunctions {
   MateModel? basicModel;
   var mateModel = MateModel().obs;
+
+  //이전 화면 card 갱신을 위한 플레그
   var isUpdate = false.obs;
 
   late String mateId;
@@ -63,6 +65,8 @@ class MatingDetailController extends GetxController
           await HttpClient.instance.post('/mate/apply/$mateId', body: {});
       if (response['code'] == 200) {
         await getMateDetail(mateId);
+        setMate(MateModel.fromJson(response['data']), justBasicChange: true);
+        setUpdate(true);
       }
     } catch (e) {
       Print.e(e);
@@ -78,6 +82,8 @@ class MatingDetailController extends GetxController
           .post('/mate/apply/cancel/$mateId', body: {});
       if (response['code'] == 200) {
         await getMateDetail(mateId);
+        setMate(MateModel.fromJson(response['data']), justBasicChange: true);
+        setUpdate(true);
       }
     } catch (e) {
       Print.e(e);
@@ -97,6 +103,9 @@ class MatingDetailController extends GetxController
       if (response['code'] == 200) {
         removeMember(sId);
       }
+
+      setMate(MateModel.fromJson(response['data']), justBasicChange: true);
+      setUpdate(true);
     } catch (e) {
       Print.e(e);
     }
@@ -128,7 +137,7 @@ class MatingDetailController extends GetxController
       var response = await HttpClient.instance.post(
         '/mate/accept/${mateModel.value.sId}',
         body: {
-          'acceptedId': userId,
+          'userId': userId,
         },
       );
       if (response['code'] == 200) {
@@ -136,6 +145,9 @@ class MatingDetailController extends GetxController
       } else {
         showMessage(response['message']);
       }
+      setMate(MateModel.fromJson(response['data']), justBasicChange: true);
+
+      setUpdate(true);
     } catch (e) {
       Print.e(e);
     }
