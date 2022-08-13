@@ -50,6 +50,9 @@ class MatePostingScreen extends StatelessWidget {
                       height: Constants.sapceGap * 6,
                     ),
                     Expanded(child: pageList[_controller.pageIndex.value]),
+                    SizedBox(
+                      height: Constants.sapceGap * 3,
+                    ),
                   ],
                 ),
               ),

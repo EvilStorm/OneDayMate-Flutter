@@ -9,8 +9,10 @@ import 'app_exception.dart';
 import 'http_log_intercepter.dart';
 
 class HttpClient {
-  final testDomain = "192.168.0.12:2394";
-  final liveDomain = "192.168.0.12:2394";
+  final testDomain =
+      "ec2-3-36-123-30.ap-northeast-2.compute.amazonaws.com:2394";
+  final liveDomain =
+      "ec2-3-36-123-30.ap-northeast-2.compute.amazonaws.com:2394";
   Map<String, String> header = {
     "Content-Type": "application/json",
   };

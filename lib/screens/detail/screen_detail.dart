@@ -140,7 +140,7 @@ class MateDetailScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 200,
+                          height: 240,
                           child: DetailHeader(
                             images: _detailController.mateModel.value.images,
                             totalCount: _detailController
